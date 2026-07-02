@@ -1,0 +1,2889 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chemistry 1 | The Quantum Theory and Electronic Structure of the Atom</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1e2428;
+      --muted: #56616a;
+      --line: #ccd5dc;
+      --paper: #fbfcfd;
+      --panel: #ffffff;
+      --blue: #2364aa;
+      --teal: #0d7f7a;
+      --gold: #9a6b00;
+      --rose: #b54665;
+      --green: #287a3e;
+      --shadow: 0 8px 22px rgba(30, 36, 40, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: #eef3f6;
+      line-height: 1.45;
+    }
+
+    header {
+      background:
+        linear-gradient(90deg, rgba(35,100,170,0.94), rgba(13,127,122,0.9)),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.42), transparent 28%);
+      color: white;
+      padding: 28px 22px 22px;
+      border-bottom: 5px solid #e6b64f;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      opacity: 0.88;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 980px;
+      font-size: clamp(1.75rem, 3.8vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 920px;
+      margin: 12px 0 0;
+      font-size: 1.06rem;
+      opacity: 0.94;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+
+    nav .wrap {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 18px;
+    }
+
+    nav a {
+      flex: 0 0 auto;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 750;
+      font-size: 0.9rem;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 8px;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 18px 40px;
+    }
+
+    section {
+      margin: 0 0 20px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+      line-height: 1.25;
+    }
+
+    p { margin: 0 0 9px; }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 15px;
+      overflow: hidden;
+    }
+
+    .accordion-shell.grid {
+      display: block;
+    }
+
+    .section-details > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      font-size: 1.15rem;
+      font-weight: 950;
+      color: var(--ink);
+      padding: 2px 0;
+      list-style: none;
+    }
+
+    .section-details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-details > summary::after {
+      content: "+";
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--blue);
+      background: #f7fbff;
+      font-weight: 950;
+    }
+
+    .section-details[open] > summary::after {
+      content: "-";
+    }
+
+    .section-accordion-content {
+      margin-top: 14px;
+    }
+
+    .mini {
+      min-height: 100%;
+      border-top: 5px solid var(--blue);
+    }
+
+    .mini.teal { border-top-color: var(--teal); }
+    .mini.gold { border-top-color: var(--gold); }
+    .mini.rose { border-top-color: var(--rose); }
+    .mini.green { border-top-color: var(--green); }
+
+    .tag {
+      display: inline-block;
+      font-weight: 850;
+      color: white;
+      background: var(--blue);
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-right: 5px;
+      min-width: 2.2rem;
+      text-align: center;
+    }
+
+    .tag.teal { background: var(--teal); }
+    .tag.gold { background: var(--gold); }
+    .tag.rose { background: var(--rose); }
+    .tag.green { background: var(--green); }
+
+    .rule {
+      background: #fff7df;
+      border: 1px solid #e6c979;
+      border-left: 7px solid #d39a09;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-weight: 760;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 0.94rem;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #dfe8ee;
+      font-weight: 850;
+    }
+
+    .tight td, .tight th { padding: 6px 8px; }
+
+    .quantum-table {
+      font-size: 0.9rem;
+    }
+
+    .quantum-table th {
+      background: #fff3f3;
+      border-color: #d7282f;
+    }
+
+    .quantum-table td {
+      border-color: #d7282f;
+    }
+
+    .quantum-table .shell-total {
+      font-size: 1.08rem;
+      font-weight: 900;
+      color: var(--rose);
+      text-align: center;
+    }
+
+    .quantum-table .theoretical {
+      color: #5178bf;
+      background: #f8fbff;
+    }
+
+    .aufbau {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(70px, 1fr));
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .aufbau span {
+      display: block;
+      border: 1px solid var(--line);
+      background: #f7fafb;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .orbital-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .orbital-gallery {
+      display: grid;
+      gap: 10px;
+    }
+
+    .orbital-accordion {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .orbital-accordion summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 13px;
+      cursor: pointer;
+      font-weight: 900;
+      background: #f7fafb;
+      list-style: none;
+    }
+
+    .orbital-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .orbital-accordion summary::after {
+      content: "+";
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .orbital-accordion[open] summary::after {
+      content: "-";
+    }
+
+    .orbital-card {
+      padding: 13px;
+    }
+
+    .orbital-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .l-badge {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .orbital-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+
+    .orbital-facts span {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #f7fafb;
+      padding: 6px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 850;
+    }
+
+    .orbital-images {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+    }
+
+    .orbital-image {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+      padding: 8px 4px;
+      min-height: 156px;
+    }
+
+    .orbital-image svg {
+      width: 122px;
+      height: 112px;
+      overflow: visible;
+    }
+
+    .orbital-image small {
+      color: var(--muted);
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .orbital-lobe {
+      transform-origin: center;
+      animation: orbitalPulse 2.8s ease-in-out infinite;
+    }
+
+    .orbital-axis {
+      stroke: #1e2428;
+      stroke-width: 1.4;
+      marker-end: url(#orbitalArrow);
+    }
+
+    .orbital-axis-soft {
+      stroke: rgba(30,36,40,0.55);
+      stroke-width: 1.1;
+    }
+
+    .phase-red {
+      fill: url(#phaseRed);
+      stroke: rgba(181,70,101,0.38);
+      stroke-width: 1;
+    }
+
+    .phase-blue {
+      fill: url(#phaseBlue);
+      stroke: rgba(35,100,170,0.38);
+      stroke-width: 1;
+    }
+
+    .orbital-rotate {
+      transform-origin: center;
+      animation: orbitalTurn 6s linear infinite;
+    }
+
+    @keyframes orbitalPulse {
+      0%, 100% { transform: scale(0.94); opacity: 0.78; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    @keyframes orbitalTurn {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .shape {
+      height: 78px;
+      margin: 4px auto 7px;
+      position: relative;
+    }
+
+    .visual-panel {
+      background: #f7fafb;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .visual-panel svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .note-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .note-list li { margin: 0 0 6px; }
+
+    .principle {
+      border-left: 6px solid var(--teal);
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 12px;
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .principle-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #ebfaf8;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+
+    .principle-icon svg {
+      width: 30px;
+      height: 30px;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .principle:nth-child(2) .principle-icon {
+      background: #eef6ff;
+      color: var(--blue);
+    }
+
+    .principle:nth-child(3) .principle-icon {
+      background: #fff0f4;
+      color: var(--rose);
+    }
+
+    .principle:nth-child(2) { border-left-color: var(--blue); }
+    .principle:nth-child(3) { border-left-color: var(--rose); }
+
+    .hotel-sim {
+      display: grid;
+      grid-template-columns: minmax(320px, 1.35fr) minmax(260px, 0.65fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .sim-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .sim-tab {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      padding: 8px 12px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .sim-tab[aria-selected="true"] {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .sim-view { display: none; }
+    .sim-view.active { display: block; }
+
+    .electron-hotel {
+      position: relative;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      border: 3px solid #57788d;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+      min-height: 640px;
+    }
+
+    .hotel-core {
+      position: absolute;
+      left: 72px;
+      right: 0;
+      bottom: 0;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      background: #2f3b44;
+      color: #fff;
+      font-weight: 900;
+      z-index: 2;
+    }
+
+    .floor-labels {
+      display: grid;
+      grid-template-rows: repeat(7, 1fr) 58px;
+      background: #edf3f6;
+      border-right: 2px solid #9eb1bd;
+    }
+
+    .floor-label {
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #1e2428;
+      border-bottom: 1px solid #c9d5dc;
+    }
+
+    .floor-stack {
+      display: grid;
+      grid-template-rows: repeat(7, 1fr) 58px;
+    }
+
+    .hotel-floor {
+      display: grid;
+      grid-template-columns: 58px repeat(4, minmax(52px, 1fr));
+      gap: 7px;
+      align-items: center;
+      padding: 6px 8px;
+      border-bottom: 1px solid #c9d5dc;
+      background: linear-gradient(90deg, #fbfdff, #f2f7f9);
+    }
+
+    .hotel-floor:nth-child(odd) { background: linear-gradient(90deg, #fffaf0, #f5faf8); }
+
+    .attraction {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .hotel-room {
+      min-height: 46px;
+      border: 1px solid #b6c5ce;
+      border-radius: 6px;
+      background: #fff;
+      padding: 4px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 3px;
+    }
+
+    .hotel-room.locked {
+      opacity: 0.3;
+      background: repeating-linear-gradient(45deg, #f4f4f4, #f4f4f4 7px, #e6ecef 7px, #e6ecef 14px);
+    }
+
+    .room-name {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .room-seats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-height: 24px;
+    }
+
+    .electron-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #8d2e4a;
+      border-radius: 50%;
+      background: #ffe9ef;
+      color: #8d2e4a;
+      padding: 0;
+      line-height: 1;
+      font-size: 1.05rem;
+      font-weight: 900;
+      box-shadow: none;
+    }
+
+    .electron-btn:focus,
+    .electron-btn:hover {
+      outline: 3px solid rgba(181,70,101,0.22);
+      color: #8d2e4a;
+      border-color: #8d2e4a;
+    }
+
+    .address-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 100%;
+    }
+
+    .address-card .address {
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f7fbff;
+      border: 1px solid #b8d0e5;
+      font-size: 1.05rem;
+      font-weight: 850;
+    }
+
+    .shell-stage {
+      min-height: 500px;
+      display: grid;
+      place-items: center;
+    }
+
+    .mo-room {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .legend-chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      padding: 5px 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .hotel-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .hotel-controls label {
+      font-weight: 900;
+    }
+
+    .hotel-controls select {
+      min-width: 240px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px 10px;
+      font-weight: 800;
+    }
+
+    .energy-hotel {
+      position: relative;
+      display: grid;
+      grid-template-columns: 64px 78px repeat(4, minmax(118px, 1fr));
+      gap: 8px;
+      min-height: 780px;
+      padding: 44px 12px 58px 12px;
+      border: 3px solid #57788d;
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,247,223,0.7), rgba(247,251,255,0.95)),
+        repeating-linear-gradient(180deg, transparent 0, transparent 37px, rgba(86,97,106,0.12) 38px);
+      overflow-x: auto;
+    }
+
+    .energy-axis {
+      position: relative;
+      grid-row: 1 / span 19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 56px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 900;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      border-left: 2px solid #1e2428;
+    }
+
+    .energy-axis::before {
+      content: "";
+      position: absolute;
+      top: -7px;
+      left: -6px;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid #1e2428;
+      transform: rotate(180deg);
+    }
+
+    #energy-rooms {
+      display: contents;
+    }
+
+    .hotel-elevator {
+      grid-column: 2;
+      grid-row: 1 / span 20;
+      display: grid;
+      grid-template-rows: 42px repeat(7, 1fr);
+      border: 2px solid #7f9cad;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #ffffff, #e9f1f5);
+      overflow: hidden;
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,0.7);
+    }
+
+    .elevator-title {
+      display: grid;
+      place-items: center;
+      background: #2f3b44;
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .elevator-floor {
+      display: grid;
+      place-items: center;
+      border-top: 1px solid #c9d5dc;
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 0.78rem;
+      text-align: center;
+      background: rgba(255,255,255,0.65);
+    }
+
+    .elevator-floor small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+
+    .wing-title {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      align-self: start;
+      background: #2f3b44;
+      color: white;
+      border-radius: 8px;
+      padding: 7px;
+      text-align: center;
+      font-weight: 900;
+      box-shadow: 0 4px 10px rgba(30,36,40,0.14);
+    }
+
+    .subshell-icon {
+      display: block;
+      width: 48px;
+      height: 34px;
+      margin: 0 auto 4px;
+    }
+
+    .subshell-icon .axis {
+      stroke: rgba(255,255,255,0.48);
+      stroke-width: 1.5;
+    }
+
+    .subshell-icon .shape {
+      fill: rgba(255,255,255,0.88);
+      stroke: rgba(255,255,255,0.95);
+      stroke-width: 1.2;
+    }
+
+    .energy-floor {
+      align-self: center;
+      display: grid;
+      gap: 4px;
+      min-height: 34px;
+    }
+
+    .floor-tag {
+      display: inline-block;
+      width: fit-content;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 7px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+
+    .orbital-rooms {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 5px;
+      align-items: center;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .orbital-cell {
+      display: grid;
+      gap: 2px;
+      justify-items: center;
+      flex: 0 0 auto;
+    }
+
+    .orbital-room {
+      min-width: 36px;
+      min-height: 30px;
+      border: 1.5px solid #56616a;
+      border-radius: 6px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 2px;
+    }
+
+    .orbital-label {
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 900;
+      line-height: 1.1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .subshell-s {
+      border-color: var(--gold);
+      background: #fff8e7;
+    }
+
+    .subshell-p {
+      border-color: var(--teal);
+      background: #ebfaf8;
+    }
+
+    .subshell-d {
+      border-color: var(--blue);
+      background: #eef6ff;
+    }
+
+    .subshell-f {
+      border-color: var(--rose);
+      background: #fff0f4;
+    }
+
+    .hotel-electron {
+      width: 22px;
+      height: 22px;
+      border: 1px solid #8d2e4a;
+      border-radius: 50%;
+      background: #ffe9ef;
+      color: #8d2e4a;
+      padding: 0;
+      line-height: 1;
+      font-size: 0.9rem;
+      font-weight: 900;
+      box-shadow: none;
+    }
+
+    .hotel-electron:hover,
+    .hotel-electron:focus {
+      outline: 3px solid rgba(181,70,101,0.22);
+      color: #8d2e4a;
+      border-color: #8d2e4a;
+    }
+
+    .nucleus-strip {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      display: grid;
+      place-items: center;
+      min-height: 36px;
+      border-radius: 8px;
+      background: #2f3b44;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .shell-silhouette {
+      position: absolute;
+      right: 14px;
+      bottom: 58px;
+      width: 180px;
+      height: 180px;
+      border: 2px dashed rgba(35,100,170,0.32);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .shell-silhouette::before,
+    .shell-silhouette::after {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border: 2px dashed rgba(13,127,122,0.28);
+      border-radius: 50%;
+    }
+
+    .shell-silhouette::after {
+      inset: 58px;
+      border-color: rgba(154,107,0,0.32);
+    }
+
+    .element-summary {
+      margin: 8px 0 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafb;
+      font-size: 0.92rem;
+    }
+
+    .post-test-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mc-question {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .mc-question fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mc-question legend {
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    .mc-option {
+      display: block;
+      padding: 5px 0;
+    }
+
+    .test-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .score-box {
+      font-weight: 850;
+      color: var(--blue);
+    }
+
+    .competency-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .story-box {
+      background: #f7fbff;
+      border: 1px solid #b8d0e5;
+      border-left: 7px solid var(--blue);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .manager-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .manager-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+      min-height: 100%;
+    }
+
+    .manager-card strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--blue);
+      font-size: 1rem;
+    }
+
+    .model-image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .model-image {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .model-image svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .mnemonic-board {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) minmax(240px, 0.8fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .diagonal-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+      overflow-x: auto;
+    }
+
+    .aufbau-diagram {
+      min-width: 520px;
+    }
+
+    .mnemonic-step {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      padding: 7px 10px;
+      font-weight: 900;
+      cursor: pointer;
+      margin: 3px;
+    }
+
+    .mnemonic-step.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .mnemonic-output {
+      border: 1px solid #b8d0e5;
+      border-radius: 8px;
+      background: #f7fbff;
+      padding: 12px;
+      min-height: 150px;
+    }
+
+    .practice-band {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .practice-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .practice-card h3 {
+      margin-bottom: 6px;
+    }
+
+    .ptable-lab {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: minmax(420px, 1.25fr) minmax(280px, 0.75fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .periodic-table {
+      display: grid;
+      grid-template-columns: minmax(46px, auto) repeat(18, minmax(34px, 1fr));
+      gap: 4px;
+      overflow-x: auto;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .ptable-label {
+      min-height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #f7fafb;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 950;
+      text-align: center;
+      padding: 3px;
+    }
+
+    .period-label {
+      background: #2f3b44;
+      color: #fff;
+    }
+
+    .f-position-label {
+      background: #fff0f4;
+      color: #8d2e4a;
+    }
+
+    .element-tile {
+      min-width: 34px;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      padding: 3px;
+      box-shadow: none;
+      display: grid;
+      align-content: center;
+      gap: 1px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .element-tile:hover,
+    .element-tile:focus,
+    .element-tile.active {
+      outline: 3px solid rgba(35,100,170,0.22);
+      border-color: var(--blue);
+      transform: none;
+    }
+
+    .element-tile .atomic-number {
+      font-size: 0.58rem;
+      color: var(--muted);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .element-tile .symbol {
+      font-size: 0.9rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .block-s { background: #fff8e7; }
+    .block-p { background: #ebfaf8; }
+    .block-d { background: #eef6ff; }
+    .block-f { background: #fff0f4; }
+
+    .ptable-output {
+      border: 1px solid #b8d0e5;
+      border-radius: 8px;
+      background: #f7fbff;
+      padding: 12px;
+    }
+
+    .config-line {
+      line-height: 1.9;
+      font-weight: 800;
+      word-spacing: 2px;
+    }
+
+    .config-term {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 1px 7px;
+      margin: 2px;
+      background: #fff;
+    }
+
+    .config-term.core {
+      box-shadow: inset 0 0 0 2px rgba(47,59,68,0.30);
+      background:
+        linear-gradient(135deg, rgba(47,59,68,0.12), rgba(47,59,68,0.03)),
+        #fff;
+    }
+
+    .config-term.valence {
+      outline: 2px solid rgba(181,70,101,0.45);
+    }
+
+    .config-term.block-s { border-color: var(--gold); }
+    .config-term.block-p { border-color: var(--teal); }
+    .config-term.block-d { border-color: var(--blue); }
+    .config-term.block-f { border-color: var(--rose); }
+
+    .legend-row.config-legend {
+      justify-content: flex-start;
+      margin: 8px 0;
+    }
+
+    .core-note {
+      border: 1px solid #c9d5dc;
+      border-left: 6px solid var(--ink);
+      border-radius: 8px;
+      background: #fff;
+      padding: 9px;
+      margin: 8px 0;
+    }
+
+    .exception-note {
+      border: 1px solid #e6c979;
+      border-left: 6px solid var(--gold);
+      border-radius: 8px;
+      background: #fff8e7;
+      padding: 9px;
+      margin: 8px 0;
+    }
+
+    .sphere {
+      width: 76px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff, #7fa8ce 55%, #315f88);
+    }
+
+    .p-shape::before,
+    .p-shape::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 42px;
+      height: 42px;
+      border-radius: 50% 50% 46% 46%;
+      background: radial-gradient(circle at 35% 25%, #ffffff, #6aa5a1 62%, #1f615e);
+      transform: translateX(-50%);
+    }
+
+    .p-shape::before { top: 0; }
+    .p-shape::after { bottom: 0; transform: translateX(-50%) rotate(180deg); }
+
+    .d-shape::before,
+    .d-shape::after,
+    .d-shape span::before,
+    .d-shape span::after {
+      content: "";
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 25%, #ffffff, #d0a646 62%, #7b5708);
+    }
+
+    .d-shape::before { left: 22px; top: 3px; }
+    .d-shape::after { right: 22px; bottom: 3px; }
+    .d-shape span::before { right: 22px; top: 3px; }
+    .d-shape span::after { left: 22px; bottom: 3px; }
+
+    .f-shape::before,
+    .f-shape::after,
+    .f-shape span::before,
+    .f-shape span::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 25%, #ffffff, #cb7890 62%, #87344f);
+    }
+
+    .f-shape::before { left: 16px; top: 0; }
+    .f-shape::after { right: 16px; top: 0; }
+    .f-shape span::before { left: 16px; bottom: 0; }
+    .f-shape span::after { right: 16px; bottom: 0; }
+
+    .f-shape i {
+      position: absolute;
+      inset: 23px 16px;
+      border-radius: 50%;
+      border: 12px solid rgba(181,70,101,0.48);
+    }
+
+    .formula {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .formula div {
+      background: #f5f8fa;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      margin: 0 0 8px;
+      padding-left: 34px;
+      position: relative;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      color: white;
+      background: var(--teal);
+      text-align: center;
+      font-weight: 850;
+      line-height: 24px;
+    }
+
+    .practice-band {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .practice-step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 13px;
+      min-height: 100%;
+    }
+
+    .practice-step h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: white;
+      background: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .practice-step:nth-child(2) .badge { background: var(--teal); }
+    .practice-step:nth-child(3) .badge { background: var(--rose); }
+
+    .worksheet {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .question {
+      margin: 0 0 12px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .line {
+      display: inline-block;
+      min-width: 190px;
+      border-bottom: 1.5px solid #222;
+      transform: translateY(-2px);
+      margin: 0 5px;
+    }
+
+    .longline {
+      display: block;
+      height: 24px;
+      border-bottom: 1.5px solid #222;
+      margin: 3px 0 7px 24px;
+    }
+
+    .answer-key {
+      border: 2px solid #9ab7cc;
+      background: #f7fbff;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      padding: 10px 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .small { font-size: 0.88rem; color: var(--muted); }
+    .nowrap { white-space: nowrap; }
+    .center { text-align: center; }
+
+    .printbar {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin: 0 0 14px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--ink);
+      padding: 8px 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button:hover { border-color: var(--blue); color: var(--blue); }
+
+    @media (max-width: 860px) {
+      .grid.two, .grid.three, .grid.four, .formula, .orbital-row, .orbital-gallery, .practice-band, .hotel-sim, .mo-room, .manager-grid, .model-image-grid, .mnemonic-board {
+        grid-template-columns: 1fr;
+      }
+
+      header { padding-top: 22px; }
+      .aufbau { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      th, td { font-size: 0.86rem; }
+      .line { min-width: 130px; }
+      .electron-hotel { grid-template-columns: 54px 1fr; min-height: 590px; }
+      .hotel-core { left: 54px; }
+      .hotel-floor { grid-template-columns: 42px repeat(4, minmax(46px, 1fr)); gap: 4px; padding: 5px; }
+      .electron-btn { width: 24px; height: 24px; }
+      .energy-hotel { grid-template-columns: 48px 68px repeat(4, minmax(105px, 1fr)); }
+      .hotel-controls select { min-width: 190px; }
+    }
+
+    @media print {
+      body { background: white; font-size: 10.5pt; }
+      header { color: black; background: white; border-bottom: 2px solid #222; padding: 0 0 10px; }
+      nav, .printbar { display: none; }
+      main { padding: 12px 0; max-width: none; }
+      .card, .question, details { box-shadow: none; border-color: #888; }
+      .card { break-inside: avoid; }
+      a { color: black; text-decoration: none; }
+      h1 { font-size: 22pt; }
+      h2 { font-size: 15pt; }
+      .answer-key { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">Chemistry 1 | Elective Subject</p>
+      <h1>The Quantum Theory and Electronic Structure of the Atom</h1>
+    </div>
+  </header>
+
+  <nav aria-label="Page sections">
+    <div class="wrap">
+      <a href="#target">Target</a>
+      <a href="#competency-1">Part 1</a>
+      <a href="#competency-2">Part 2</a>
+      <a href="#cheatsheet">Part 3</a>
+      <a href="#orbitals">Orbitals</a>
+      <a href="#atom-building">Atomic Hotel</a>
+      <a href="#examples">Examples</a>
+      <a href="#guided-practice">I Do / We Do / You Do</a>
+      <a href="#worksheets">Worksheets</a>
+      <a href="#post-test">Assessment</a>
+      <a href="#answers">Answer Key</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="printbar">
+      <button type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <section id="target" class="card">
+      <h2>Learning Target</h2>
+      <p><strong>I can explain</strong> how the quantum mechanical model developed, <strong>write</strong> electron configurations using quantum mechanical principles, and <strong>predict</strong> main energy levels, sublevels, and orbitals in relation to the electronic configuration of elements.</p>
+      <div class="rule">Core idea: An electron's address is written from big to small: shell <span class="nowrap">(n)</span> → sublevel <span class="nowrap">(&ell;)</span> → orbital orientation <span class="nowrap">(m<sub>&ell;</sub>)</span> → spin <span class="nowrap">(m<sub>s</sub>)</span>.</div>
+    </section>
+
+    <section id="competency-1" class="card">
+      <span class="competency-label">Competency 1</span>
+      <h2>Cheatsheet: Development of the Quantum Mechanical Model</h2>
+      <div class="grid three">
+        <article class="principle">
+          <div class="principle-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><circle cx="16" cy="16" r="11"/><path d="M26 16h3"/><path d="M3 16h3"/></svg>
+          </div>
+          <h3>From Fixed Paths to Probability</h3>
+          <p>Bohr pictured electrons in fixed circular shells. The quantum mechanical model says electrons are found in probability regions called orbitals.</p>
+        </article>
+        <article class="principle">
+          <div class="principle-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M3 20c4-8 8-8 13 0s9 8 13 0"/><circle cx="16" cy="12" r="3"/><path d="M16 15v7"/></svg>
+          </div>
+          <h3>Wave-Particle Idea</h3>
+          <p>Electrons act like particles and waves. Because of this, we describe where an electron is likely to be, not an exact path.</p>
+        </article>
+        <article class="principle">
+          <div class="principle-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><ellipse cx="16" cy="16" rx="12" ry="7"/><ellipse cx="16" cy="16" rx="7" ry="12" transform="rotate(55 16 16)"/><circle cx="16" cy="16" r="2"/></svg>
+          </div>
+          <h3>Orbitals Replace Orbits</h3>
+          <p>An orbit is a path. An orbital is a region of high probability. Quantum numbers describe each orbital and electron.</p>
+        </article>
+      </div>
+      <div class="story-box">
+        <strong>Simple story:</strong> Old atomic models tried to draw electron roads. The quantum model gives a map of likely rooms where electron guests can be found.
+      </div>
+      <div class="model-image-grid">
+        <div class="model-image">
+          <h3>From Orbit to Orbital</h3>
+          <svg viewBox="0 0 560 300" role="img" aria-label="Bohr orbit compared with quantum orbital">
+            <title>Bohr orbit compared with quantum orbital</title>
+            <rect x="20" y="24" width="240" height="240" rx="10" fill="#f7fbff" stroke="#b8d0e5"/>
+            <text x="56" y="58" font-size="22" font-weight="900" fill="#1e2428">Bohr idea</text>
+            <circle cx="140" cy="155" r="26" fill="#2f3b44"/>
+            <text x="116" y="162" fill="#fff" font-size="14" font-weight="900">nucleus</text>
+            <circle cx="140" cy="155" r="82" fill="none" stroke="#2364aa" stroke-width="4"/>
+            <circle cx="222" cy="155" r="9" fill="#b54665"/>
+            <text x="62" y="264" font-size="16" fill="#56616a">electron path is drawn like a track</text>
+            <rect x="300" y="24" width="240" height="240" rx="10" fill="#fff8e7" stroke="#e6c979"/>
+            <text x="332" y="58" font-size="22" font-weight="900" fill="#1e2428">Quantum idea</text>
+            <circle cx="420" cy="155" r="24" fill="#2f3b44"/>
+            <ellipse cx="420" cy="155" rx="92" ry="64" fill="rgba(35,100,170,0.20)" stroke="#2364aa" stroke-width="3" stroke-dasharray="7 7"/>
+            <circle cx="383" cy="125" r="5" fill="#2364aa"/><circle cx="456" cy="172" r="5" fill="#2364aa"/><circle cx="430" cy="108" r="5" fill="#2364aa"/><circle cx="395" cy="184" r="5" fill="#2364aa"/><circle cx="482" cy="143" r="5" fill="#2364aa"/>
+            <text x="328" y="264" font-size="16" fill="#56616a">electron location is a probability region</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="competency-2" class="card">
+      <span class="competency-label">Competency 2</span>
+      <h2>Cheatsheet: Writing Electronic Configurations</h2>
+      <div class="grid three">
+        <article class="principle">
+          <h3>1. Follow Energy Order</h3>
+          <p>Use the Aufbau order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s...</p>
+        </article>
+        <article class="principle">
+          <h3>2. Respect Room Capacity</h3>
+          <p>s holds 2, p holds 6, d holds 10, and f holds 14 electrons.</p>
+        </article>
+        <article class="principle">
+          <h3>3. Check the Total</h3>
+          <p>For a neutral atom, the superscripts must add up to the atomic number.</p>
+        </article>
+      </div>
+      <div class="story-box">
+        <strong>Example:</strong> Magnesium has 12 electrons: 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup>. The superscripts add to 12.
+      </div>
+      <div class="story-box">
+        <strong>Why the cheatsheet rules work:</strong> The filling order follows energy, not just floor number. Some rooms on a higher floor, like 4s, are slightly lower in energy than some rooms on a lower floor, like 3d. The capacity rules come from the number of orbital rooms in each sublevel, and the spin rule comes from Pauli: one room can hold only two opposite-spin electrons.
+      </div>
+      <div class="practice-band">
+        <article class="practice-card">
+          <h3>I Do: Full and Condensed Configuration</h3>
+          <p><strong>Sample:</strong> Sodium, Na, has 11 electrons.</p>
+          <p><strong>Full:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>1</sup></p>
+          <p><strong>Condensed:</strong> [Ne] 3s<sup>1</sup></p>
+          <p class="small">The noble-gas core is [Ne] because the first 10 electrons match neon. The remaining electron is in the valence shell, n = 3.</p>
+        </article>
+        <article class="practice-card">
+          <h3>We Do: Try Calcium Together</h3>
+          <p><strong>Ca has 20 electrons.</strong> Fill until the total superscripts equal 20.</p>
+          <p><strong>Full:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup> 4s<sup>2</sup></p>
+          <p><strong>Condensed:</strong> [Ar] 4s<sup>2</sup></p>
+          <p class="small">[Ar] represents the first 18 electrons. The 4s electrons show calcium's outer shell.</p>
+        </article>
+        <article class="practice-card">
+          <h3>You Do: Check Aluminum</h3>
+          <p><strong>Al has 13 electrons.</strong> Write the full configuration first, then replace the noble-gas core.</p>
+          <p><strong>Full:</strong> <span class="longline"></span></p>
+          <p><strong>Condensed:</strong> <span class="longline"></span></p>
+          <p class="small">Hint: the noble gas before Al is Ne.</p>
+        </article>
+      </div>
+      <div class="mnemonic-board">
+        <div class="diagonal-card">
+          <h3>Interactive Diagonal Mnemonic</h3>
+          <p class="small">Click a diagonal arrow to reveal that part of the Aufbau filling order.</p>
+          <svg class="aufbau-diagram" viewBox="0 0 620 620" role="img" aria-label="Aufbau diagonal filling mnemonic">
+            <text x="110" y="70" font-size="34" font-weight="900">1s</text>
+            <text x="110" y="160" font-size="34" font-weight="900">2s</text><text x="250" y="160" font-size="34" font-weight="900">2p</text>
+            <text x="110" y="250" font-size="34" font-weight="900">3s</text><text x="250" y="250" font-size="34" font-weight="900">3p</text><text x="390" y="250" font-size="34" font-weight="900">3d</text>
+            <text x="110" y="340" font-size="34" font-weight="900">4s</text><text x="250" y="340" font-size="34" font-weight="900">4p</text><text x="390" y="340" font-size="34" font-weight="900">4d</text><text x="520" y="340" font-size="34" font-weight="900">4f</text>
+            <text x="110" y="430" font-size="34" font-weight="900">5s</text><text x="250" y="430" font-size="34" font-weight="900">5p</text><text x="390" y="430" font-size="34" font-weight="900">5d</text><text x="520" y="430" font-size="34" font-weight="900">5f</text>
+            <text x="110" y="520" font-size="34" font-weight="900">6s</text><text x="250" y="520" font-size="34" font-weight="900">6p</text><text x="390" y="520" font-size="34" font-weight="900">6d</text>
+            <text x="110" y="600" font-size="34" font-weight="900">7s</text><text x="250" y="600" font-size="34" font-weight="900">7p</text>
+            <path d="M205 35 L82 118" stroke="#2aaec2" stroke-width="10" opacity="0.75"/>
+            <path d="M235 120 L82 210" stroke="#8c62ff" stroke-width="10" opacity="0.75"/>
+            <path d="M370 120 L82 300" stroke="#ff6b73" stroke-width="10" opacity="0.75"/>
+            <path d="M370 210 L82 390" stroke="#2ecb83" stroke-width="10" opacity="0.75"/>
+            <path d="M510 210 L82 480" stroke="#2fbdd5" stroke-width="10" opacity="0.75"/>
+            <path d="M545 300 L82 570" stroke="#ffc66d" stroke-width="10" opacity="0.75"/>
+            <path d="M590 390 L210 610" stroke="#6e86ff" stroke-width="10" opacity="0.75"/>
+          </svg>
+        </div>
+        <div class="mnemonic-output">
+          <h3>Click-to-Remember Order</h3>
+          <div>
+            <button class="mnemonic-step" type="button" data-order="1s">1</button>
+            <button class="mnemonic-step" type="button" data-order="2s">2</button>
+            <button class="mnemonic-step" type="button" data-order="2p → 3s">3</button>
+            <button class="mnemonic-step" type="button" data-order="3p → 4s">4</button>
+            <button class="mnemonic-step" type="button" data-order="3d → 4p → 5s">5</button>
+            <button class="mnemonic-step" type="button" data-order="4d → 5p → 6s">6</button>
+            <button class="mnemonic-step" type="button" data-order="4f → 5d → 6p → 7s">7</button>
+            <button class="mnemonic-step" type="button" data-order="5f → 6d → 7p">8</button>
+          </div>
+          <p id="mnemonic-result" class="address">Click a number to reveal the diagonal step.</p>
+          <p class="small"><strong>Memory cue:</strong> Read each colored diagonal from upper right down to lower left, then move to the next diagonal.</p>
+        </div>
+      </div>
+      <div class="ptable-lab" aria-label="Interactive periodic table for electron configuration">
+        <div>
+          <h3>Interactive Periodic Table Configuration Builder</h3>
+          <p class="small">Click an element. The panel shows its full and condensed electronic configuration, the noble-gas core, the valence shell, and the s, p, d, or f block. This follows the school-level Aufbau filling model used in the Atomic Hotel.</p>
+          <div class="legend-row config-legend">
+            <span class="legend-chip block-s">s block</span>
+            <span class="legend-chip block-p">p block</span>
+            <span class="legend-chip block-d">d block</span>
+            <span class="legend-chip block-f">f block</span>
+            <span class="legend-chip">outlined = valence shell</span>
+            <span class="legend-chip">dark inset = noble-gas core</span>
+          </div>
+          <div id="periodic-table" class="periodic-table"></div>
+        </div>
+        <aside class="ptable-output" aria-live="polite">
+          <h3 id="ptable-title">Choose an element</h3>
+          <p id="ptable-summary" class="small">The configuration will appear here.</p>
+          <h4>Full configuration</h4>
+          <div id="ptable-full" class="config-line"></div>
+          <div id="ptable-core-note" class="core-note small"></div>
+          <h4>Noble-gas core configuration</h4>
+          <div id="ptable-core" class="config-line"></div>
+          <h4>Condensed configuration</h4>
+          <div id="ptable-condensed" class="config-line"></div>
+          <div id="ptable-alternative" class="exception-note small"></div>
+          <p id="ptable-explain" class="small"></p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="cheatsheet">
+      <span class="competency-label">Competency 3</span>
+      <h2>Cheatsheet: Energy Levels, Sublevels, and Orbitals</h2>
+      <div class="grid four">
+        <article class="card mini">
+          <h3><span class="tag">n</span> Principal Quantum Number</h3>
+          <p><strong>Means:</strong> main energy level or shell.</p>
+          <p><strong>Allowed:</strong> 1, 2, 3, 4, ...</p>
+          <p><strong>Predicts:</strong> energy, size, distance from nucleus.</p>
+          <p><strong>Memory cue:</strong> n is the floor number in an electron hotel.</p>
+        </article>
+
+        <article class="card mini teal">
+          <h3><span class="tag teal">&ell;</span> Angular Momentum</h3>
+          <p><strong>Means:</strong> sublevel or orbital shape.</p>
+          <p><strong>Allowed:</strong> 0 to n - 1.</p>
+          <p><strong>Codes:</strong> 0=s, 1=p, 2=d, 3=f.</p>
+          <p><strong>Memory cue:</strong> &ell; chooses the room type.</p>
+        </article>
+
+        <article class="card mini gold">
+          <h3><span class="tag gold">m<sub>&ell;</sub></span> Magnetic Quantum Number</h3>
+          <p><strong>Means:</strong> orbital orientation in space.</p>
+          <p><strong>Allowed:</strong> -&ell; to +&ell;, including 0.</p>
+          <p><strong>Count:</strong> 2&ell; + 1 orbitals in a sublevel.</p>
+          <p><strong>Memory cue:</strong> m<sub>&ell;</sub> chooses the exact room.</p>
+        </article>
+
+        <article class="card mini rose">
+          <h3><span class="tag rose">m<sub>s</sub></span> Spin Quantum Number</h3>
+          <p><strong>Means:</strong> electron spin inside one orbital.</p>
+          <p><strong>Allowed:</strong> +1/2 or -1/2 only.</p>
+          <p><strong>Capacity:</strong> each orbital holds 2 electrons.</p>
+          <p><strong>Memory cue:</strong> two opposite-spin seats per room.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid two">
+      <article class="card">
+        <h2>Quantum Numbers and Shell Capacity</h2>
+        <p class="small">Use this table to connect shell number, sublevel, orbital rooms, and the total number of electrons each shell can hold.</p>
+        <table class="tight quantum-table">
+          <thead>
+            <tr><th>n</th><th>&ell;</th><th>m<sub>&ell;</sub> values</th><th>Orbital</th><th>e<sup>-</sup> in sublevel<br>2(2&ell; + 1)</th><th>Total orbitals in shell<br>n<sup>2</sup></th><th>Total e<sup>-</sup> in shell<br>2n<sup>2</sup></th><th>Shell</th></tr>
+          </thead>
+          <tbody>
+            <tr><td rowspan="1">n = 1</td><td>0</td><td>0</td><td>1s</td><td>2</td><td class="shell-total">1</td><td class="shell-total">2</td><td>K</td></tr>
+            <tr><td rowspan="2">n = 2</td><td>0</td><td>0</td><td>2s</td><td>2</td><td rowspan="2" class="shell-total">4</td><td rowspan="2" class="shell-total">8</td><td rowspan="2">L</td></tr>
+            <tr><td>1</td><td>-1, 0, +1</td><td>2p</td><td>6</td></tr>
+            <tr><td rowspan="3">n = 3</td><td>0</td><td>0</td><td>3s</td><td>2</td><td rowspan="3" class="shell-total">9</td><td rowspan="3" class="shell-total">18</td><td rowspan="3">M</td></tr>
+            <tr><td>1</td><td>-1, 0, +1</td><td>3p</td><td>6</td></tr>
+            <tr><td>2</td><td>-2, -1, 0, +1, +2</td><td>3d</td><td>10</td></tr>
+            <tr><td rowspan="4">n = 4</td><td>0</td><td>0</td><td>4s</td><td>2</td><td rowspan="4" class="shell-total">16</td><td rowspan="4" class="shell-total">32</td><td rowspan="4">N</td></tr>
+            <tr><td>1</td><td>-1, 0, +1</td><td>4p</td><td>6</td></tr>
+            <tr><td>2</td><td>-2, -1, 0, +1, +2</td><td>4d</td><td>10</td></tr>
+            <tr><td>3</td><td>-3, -2, -1, 0, +1, +2, +3</td><td>4f</td><td>14</td></tr>
+            <tr><td rowspan="5">n = 5</td><td>0</td><td>0</td><td>5s</td><td>2</td><td rowspan="5" class="shell-total">25</td><td rowspan="5" class="shell-total">50</td><td rowspan="5">O</td></tr>
+            <tr><td>1</td><td>-1, 0, +1</td><td>5p</td><td>6</td></tr>
+            <tr><td>2</td><td>-2, -1, 0, +1, +2</td><td>5d</td><td>10</td></tr>
+            <tr><td>3</td><td>-3, -2, -1, 0, +1, +2, +3</td><td>5f</td><td>14</td></tr>
+            <tr class="theoretical"><td>4</td><td>-4 to +4</td><td>5g</td><td>18</td></tr>
+            <tr><td rowspan="6">n = 6</td><td>0</td><td>0</td><td>6s</td><td>2</td><td rowspan="6" class="shell-total">36</td><td rowspan="6" class="shell-total">72</td><td rowspan="6">P</td></tr>
+            <tr><td>1</td><td>-1, 0, +1</td><td>6p</td><td>6</td></tr>
+            <tr><td>2</td><td>-2, -1, 0, +1, +2</td><td>6d</td><td>10</td></tr>
+            <tr class="theoretical"><td>3</td><td>-3 to +3</td><td>6f</td><td>14</td></tr>
+            <tr class="theoretical"><td>4</td><td>-4 to +4</td><td>6g</td><td>18</td></tr>
+            <tr class="theoretical"><td>5</td><td>-5 to +5</td><td>6h</td><td>22</td></tr>
+            <tr><td rowspan="7">n = 7</td><td>0</td><td>0</td><td>7s</td><td>2</td><td rowspan="7" class="shell-total">49</td><td rowspan="7" class="shell-total">98</td><td rowspan="7">Q</td></tr>
+            <tr><td>1</td><td>-1, 0, +1</td><td>7p</td><td>6</td></tr>
+            <tr class="theoretical"><td>2</td><td>-2 to +2</td><td>7d</td><td>10</td></tr>
+            <tr class="theoretical"><td>3</td><td>-3 to +3</td><td>7f</td><td>14</td></tr>
+            <tr class="theoretical"><td>4</td><td>-4 to +4</td><td>7g</td><td>18</td></tr>
+            <tr class="theoretical"><td>5</td><td>-5 to +5</td><td>7h</td><td>22</td></tr>
+            <tr class="theoretical"><td>6</td><td>-6 to +6</td><td>7i</td><td>26</td></tr>
+          </tbody>
+        </table>
+        <p class="small" style="margin-top:8px;"><strong>Total rules:</strong> each sublevel has 2&ell; + 1 orbitals and holds 2(2&ell; + 1) electrons. Each shell has n<sup>2</sup> orbitals and holds 2n<sup>2</sup> electrons. Blue-tinted rows are theoretical higher sublevels not normally used for ground-state configurations of known elements.</p>
+      </article>
+
+      <article class="card">
+        <h2>Fast Formulas</h2>
+        <div class="formula">
+          <div>Total orbitals in shell n<br><span class="nowrap">= n<sup>2</sup></span></div>
+          <div>Total electrons in shell n<br><span class="nowrap">= 2n<sup>2</sup></span></div>
+          <div>Orbitals in sublevel &ell;<br><span class="nowrap">= 2&ell; + 1</span></div>
+        </div>
+        <p class="small" style="margin-top:10px;">Example: n = 4 has 4<sup>2</sup> = 16 orbitals and 2(4<sup>2</sup>) = 32 possible electrons.</p>
+      </article>
+    </section>
+
+    <section id="orbitals" class="card">
+      <h2>Orbital Shapes at a Glance</h2>
+      <p class="small">The angular momentum quantum number, &ell;, identifies the sublevel and basic orbital shape. The magnetic quantum number, m<sub>&ell;</sub>, identifies the orientation. These are schematic boundary-surface drawings, not exact electron paths.</p>
+      <svg width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="phaseBlue" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="55%" stop-color="#8fb2d6"/>
+            <stop offset="100%" stop-color="#2f65a0"/>
+          </radialGradient>
+          <radialGradient id="phaseRed" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="58%" stop-color="#ef8b88"/>
+            <stop offset="100%" stop-color="#c94855"/>
+          </radialGradient>
+          <marker id="orbitalArrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 z" fill="#1e2428"/>
+          </marker>
+        </defs>
+      </svg>
+      <div class="orbital-gallery">
+        <details class="orbital-accordion" open>
+          <summary><span class="orbital-title">s sublevel <span class="l-badge">&ell; = 0</span></span></summary>
+          <article class="orbital-card">
+            <div class="orbital-facts"><span>Starts at n = 1</span><span>1 orbital</span><span>2 e<sup>-</sup> max</span></div>
+            <p class="small">All s orbitals are spherical. As n increases, the sphere is larger and may contain radial nodes.</p>
+            <div class="orbital-images">
+              <div class="orbital-image"><svg viewBox="0 0 120 110" role="img" aria-label="s orbital"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis" x1="14" y1="58" x2="106" y2="58"/><line class="orbital-axis-soft" x1="25" y1="92" x2="93" y2="24"/><text x="108" y="60" font-size="12">x</text><text x="94" y="24" font-size="12">y</text><text x="62" y="14" font-size="12">z</text><circle class="orbital-lobe phase-blue" cx="60" cy="58" r="24"/></svg><small>s orbital<br>spherical</small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110" role="img" aria-label="larger s orbital"><line class="orbital-axis" x1="60" y1="100" x2="60" y2="10"/><line class="orbital-axis" x1="10" y1="58" x2="110" y2="58"/><circle class="orbital-lobe phase-blue" cx="60" cy="58" r="34" opacity="0.8"/><circle cx="60" cy="58" r="16" fill="none" stroke="#2f65a0" stroke-dasharray="4 4" stroke-width="2"/></svg><small>higher n s<br>larger; radial node</small></div>
+            </div>
+          </article>
+        </details>
+
+        <details class="orbital-accordion">
+          <summary><span class="orbital-title">p sublevel <span class="l-badge">&ell; = 1</span></span></summary>
+          <article class="orbital-card">
+            <div class="orbital-facts"><span>Starts at n = 2</span><span>3 orbitals</span><span>6 e<sup>-</sup> max</span></div>
+            <p class="small">p<sub>x</sub>, p<sub>y</sub>, and p<sub>z</sub> have the same dumbbell shape and energy within one subshell; only their orientation differs.</p>
+            <div class="orbital-images">
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis" x1="12" y1="58" x2="108" y2="58"/><line class="orbital-axis-soft" x1="24" y1="92" x2="94" y2="24"/><ellipse class="orbital-lobe phase-red" cx="38" cy="58" rx="20" ry="28"/><ellipse class="orbital-lobe phase-blue" cx="82" cy="58" rx="20" ry="28"/><text x="45" y="103" font-size="15">p<tspan baseline-shift="sub" font-size="11">x</tspan></text></svg><small>p<sub>x</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis" x1="12" y1="58" x2="108" y2="58"/><line class="orbital-axis-soft" x1="24" y1="92" x2="94" y2="24"/><g transform="rotate(-38 60 58)"><ellipse class="orbital-lobe phase-red" cx="38" cy="58" rx="20" ry="28"/><ellipse class="orbital-lobe phase-blue" cx="82" cy="58" rx="20" ry="28"/></g><text x="45" y="103" font-size="15">p<tspan baseline-shift="sub" font-size="11">y</tspan></text></svg><small>p<sub>y</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis" x1="12" y1="58" x2="108" y2="58"/><line class="orbital-axis-soft" x1="24" y1="92" x2="94" y2="24"/><ellipse class="orbital-lobe phase-red" cx="60" cy="34" rx="24" ry="16"/><ellipse class="orbital-lobe phase-blue" cx="60" cy="78" rx="24" ry="16"/><text x="45" y="103" font-size="15">p<tspan baseline-shift="sub" font-size="11">z</tspan></text></svg><small>p<sub>z</sub></small></div>
+            </div>
+          </article>
+        </details>
+
+        <details class="orbital-accordion">
+          <summary><span class="orbital-title">d sublevel <span class="l-badge">&ell; = 2</span></span></summary>
+          <article class="orbital-card">
+            <div class="orbital-facts"><span>Starts at n = 3</span><span>5 orbitals</span><span>10 e<sup>-</sup> max</span></div>
+            <p class="small">Four d orbitals have cloverleaf shapes. d<sub>z²</sub> has two lobes along z and a doughnut-shaped ring.</p>
+            <div class="orbital-images">
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis-soft" x1="12" y1="58" x2="108" y2="58"/><g transform="rotate(45 60 58)"><ellipse class="phase-red" cx="34" cy="58" rx="18" ry="11"/><ellipse class="phase-red" cx="86" cy="58" rx="18" ry="11"/><ellipse class="phase-blue" cx="60" cy="32" rx="11" ry="18"/><ellipse class="phase-blue" cx="60" cy="84" rx="11" ry="18"/></g><text x="40" y="104" font-size="14">d<tspan baseline-shift="sub" font-size="10">xy</tspan></text></svg><small>d<sub>xy</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis-soft" x1="18" y1="88" x2="100" y2="26"/><g transform="rotate(18 60 58)"><ellipse class="phase-blue" cx="34" cy="58" rx="18" ry="11"/><ellipse class="phase-red" cx="86" cy="58" rx="18" ry="11"/><ellipse class="phase-red" cx="60" cy="32" rx="11" ry="18"/><ellipse class="phase-blue" cx="60" cy="84" rx="11" ry="18"/></g><text x="40" y="104" font-size="14">d<tspan baseline-shift="sub" font-size="10">xz</tspan></text></svg><small>d<sub>xz</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis-soft" x1="18" y1="28" x2="102" y2="88"/><g transform="rotate(-18 60 58)"><ellipse class="phase-blue" cx="34" cy="58" rx="18" ry="11"/><ellipse class="phase-red" cx="86" cy="58" rx="18" ry="11"/><ellipse class="phase-red" cx="60" cy="32" rx="11" ry="18"/><ellipse class="phase-blue" cx="60" cy="84" rx="11" ry="18"/></g><text x="40" y="104" font-size="14">d<tspan baseline-shift="sub" font-size="10">yz</tspan></text></svg><small>d<sub>yz</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis" x1="12" y1="58" x2="108" y2="58"/><ellipse class="phase-red" cx="34" cy="58" rx="18" ry="11"/><ellipse class="phase-red" cx="86" cy="58" rx="18" ry="11"/><ellipse class="phase-blue" cx="60" cy="32" rx="11" ry="18"/><ellipse class="phase-blue" cx="60" cy="84" rx="11" ry="18"/><text x="32" y="104" font-size="14">d<tspan baseline-shift="sub" font-size="10">x²-y²</tspan></text></svg><small>d<sub>x²-y²</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="96" x2="60" y2="12"/><line class="orbital-axis-soft" x1="12" y1="58" x2="108" y2="58"/><ellipse class="phase-red" cx="60" cy="30" rx="14" ry="21"/><ellipse class="phase-red" cx="60" cy="86" rx="14" ry="21"/><ellipse cx="60" cy="58" rx="34" ry="9" fill="none" stroke="url(#phaseBlue)" stroke-width="9"/><text x="42" y="104" font-size="14">d<tspan baseline-shift="sub" font-size="10">z²</tspan></text></svg><small>d<sub>z²</sub></small></div>
+            </div>
+          </article>
+        </details>
+
+        <details class="orbital-accordion">
+          <summary><span class="orbital-title">f sublevel <span class="l-badge">&ell; = 3</span></span></summary>
+          <article class="orbital-card">
+            <div class="orbital-facts"><span>Starts at n = 4</span><span>7 orbitals</span><span>14 e<sup>-</sup> max</span></div>
+            <p class="small">f orbitals are more complex 3D boundary surfaces. These classroom schematics show the seven orientations with alternating phases.</p>
+            <div class="orbital-images">
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="12" y1="58" x2="108" y2="58"/><g transform="rotate(12 60 58)"><ellipse class="phase-red" cx="30" cy="36" rx="15" ry="9"/><ellipse class="phase-blue" cx="48" cy="58" rx="14" ry="9"/><ellipse class="phase-red" cx="30" cy="80" rx="15" ry="9"/><ellipse class="phase-blue" cx="78" cy="36" rx="15" ry="9"/><ellipse class="phase-red" cx="94" cy="58" rx="14" ry="9"/><ellipse class="phase-blue" cx="78" cy="80" rx="15" ry="9"/></g></svg><small>f<sub>x(x²-3y²)</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="16" y1="88" x2="104" y2="28"/><g transform="rotate(48 60 58)"><ellipse class="phase-blue" cx="30" cy="36" rx="15" ry="9"/><ellipse class="phase-red" cx="48" cy="58" rx="14" ry="9"/><ellipse class="phase-blue" cx="30" cy="80" rx="15" ry="9"/><ellipse class="phase-red" cx="78" cy="36" rx="15" ry="9"/><ellipse class="phase-blue" cx="94" cy="58" rx="14" ry="9"/><ellipse class="phase-red" cx="78" cy="80" rx="15" ry="9"/></g></svg><small>f<sub>y(x²-z²)</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="12" y1="58" x2="108" y2="58"/><ellipse class="phase-red" cx="60" cy="30" rx="15" ry="22"/><ellipse class="phase-blue" cx="60" cy="84" rx="15" ry="22"/><ellipse cx="60" cy="58" rx="35" ry="8" fill="none" stroke="url(#phaseBlue)" stroke-width="8"/></svg><small>f<sub>z³</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="18" y1="28" x2="102" y2="88"/><g transform="rotate(-18 60 58)"><ellipse class="phase-red" cx="34" cy="35" rx="17" ry="10"/><ellipse class="phase-blue" cx="86" cy="35" rx="17" ry="10"/><ellipse class="phase-blue" cx="34" cy="80" rx="17" ry="10"/><ellipse class="phase-red" cx="86" cy="80" rx="17" ry="10"/><ellipse cx="60" cy="58" rx="28" ry="7" fill="none" stroke="url(#phaseRed)" stroke-width="7"/></g></svg><small>f<sub>xz²</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="16" y1="88" x2="104" y2="28"/><g transform="rotate(28 60 58)"><ellipse class="phase-blue" cx="34" cy="35" rx="17" ry="10"/><ellipse class="phase-red" cx="86" cy="35" rx="17" ry="10"/><ellipse class="phase-red" cx="34" cy="80" rx="17" ry="10"/><ellipse class="phase-blue" cx="86" cy="80" rx="17" ry="10"/><ellipse cx="60" cy="58" rx="28" ry="7" fill="none" stroke="url(#phaseBlue)" stroke-width="7"/></g></svg><small>f<sub>yz²</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="12" y1="58" x2="108" y2="58"/><g><ellipse class="phase-red" cx="24" cy="58" rx="13" ry="9"/><ellipse class="phase-blue" cx="42" cy="37" rx="13" ry="9"/><ellipse class="phase-red" cx="62" cy="58" rx="13" ry="9"/><ellipse class="phase-blue" cx="82" cy="37" rx="13" ry="9"/><ellipse class="phase-red" cx="100" cy="58" rx="13" ry="9"/><ellipse class="phase-blue" cx="42" cy="80" rx="13" ry="9"/><ellipse class="phase-blue" cx="82" cy="80" rx="13" ry="9"/></g></svg><small>f<sub>xyz</sub></small></div>
+              <div class="orbital-image"><svg viewBox="0 0 120 110"><line class="orbital-axis" x1="60" y1="98" x2="60" y2="12"/><line class="orbital-axis-soft" x1="18" y1="28" x2="102" y2="88"/><g transform="rotate(-42 60 58)"><ellipse class="phase-blue" cx="30" cy="36" rx="15" ry="9"/><ellipse class="phase-red" cx="48" cy="58" rx="14" ry="9"/><ellipse class="phase-blue" cx="30" cy="80" rx="15" ry="9"/><ellipse class="phase-red" cx="78" cy="36" rx="15" ry="9"/><ellipse class="phase-blue" cx="94" cy="58" rx="14" ry="9"/><ellipse class="phase-red" cx="78" cy="80" rx="15" ry="9"/></g></svg><small>f<sub>y(3x²-y²)</sub></small></div>
+            </div>
+          </article>
+        </details>
+      </div>
+    </section>
+
+    <section id="atom-building" class="card">
+      <h2>The Atomic Hotel for Electrons</h2>
+      <p>Imagine the atom as a hotel. The positively charged nucleus is the basement lobby and the electrons are guests assigned to rooms. Because electrons are negatively charged, they are attracted to the positive nucleus, so every guest feels a pull toward the basement.</p>
+      <p>Each floor is a main energy level, <strong>n</strong>. Each subshell is a room type, <strong>&ell;</strong>. Each room is an orbital, <strong>m<sub>&ell;</sub></strong>. Each bed direction is spin, <strong>m<sub>s</sub></strong>. The full quantum-number address tells exactly where an electron guest belongs.</p>
+      <div class="rule">Best analogy: lower floors are closer to the positive nucleus, so electrons there are held more tightly and have lower energy. Higher floors are farther away, feel less attraction, and usually have higher energy.</div>
+      <div class="story-box">
+        <strong>Why this makes sense:</strong> Opposite charges attract. The positive nucleus attracts negative electrons. An electron on n = 1 is very close to the nucleus, so it is strongly attracted and more stable. An electron on a higher n floor is farther away, feels less pull, and is easier to remove or excite.
+      </div>
+      <div class="manager-grid" aria-label="Atomic Hotel manager rules">
+        <div class="manager-card">
+          <strong>Manager Aufbau: Fill the cheapest rooms first.</strong>
+          Aufbau sends guests to the lowest-energy available rooms before opening higher-energy rooms. This is why configurations begin with 1s, then 2s, then 2p, and so on.
+        </div>
+        <div class="manager-card">
+          <strong>Manager Pauli: Two guests per room, opposite seats.</strong>
+          Pauli allows only two electrons in one orbital room, and they must sit in opposite spin seats: +1/2 and -1/2.
+        </div>
+        <div class="manager-card">
+          <strong>Manager Hund: Spread out before pairing.</strong>
+          Hund tells electron guests in equal-energy rooms, like the three p rooms, to occupy separate rooms first before sharing.
+        </div>
+      </div>
+      <div class="story-box">
+        <strong>Why learn the quantum-number address?</strong> The address tells us exactly where an electron belongs: floor <span class="nowrap">(n)</span>, room type <span class="nowrap">(&ell;)</span>, exact room <span class="nowrap">(m<sub>&ell;</sub>)</span>, and spin seat <span class="nowrap">(m<sub>s</sub>)</span>. That address helps us write electron configurations, draw orbital diagrams, predict valence electrons, explain magnetism, and understand how atoms bond.
+      </div>
+
+      <div class="sim-tabs" role="tablist" aria-label="Electron hotel views">
+        <button class="sim-tab" type="button" role="tab" aria-selected="true" data-view="hotel-view">Atomic Hotel</button>
+        <button class="sim-tab" type="button" role="tab" aria-selected="false" data-view="bohr-view">Atomic Shells</button>
+      </div>
+
+      <div id="hotel-view" class="sim-view active" role="tabpanel">
+        <div class="hotel-controls">
+          <label for="element-select">Choose an electron guest list:</label>
+          <select id="element-select" aria-label="Choose an element"></select>
+          <span class="legend-chip">School-level Aufbau filling model: H to Og</span>
+        </div>
+        <div class="hotel-sim">
+          <div>
+            <div id="energy-hotel" class="energy-hotel" aria-label="Atomic Hotel energy ladder with s, p, d, and f subshells">
+              <div class="energy-axis">Increasing Energy</div>
+              <div class="hotel-elevator" aria-label="Energy-level elevator">
+                <div class="elevator-title">Energy<br>Elevator</div>
+                <div class="elevator-floor">n=7<small>top floor</small></div>
+                <div class="elevator-floor">n=6</div>
+                <div class="elevator-floor">n=5</div>
+                <div class="elevator-floor">n=4</div>
+                <div class="elevator-floor">n=3</div>
+                <div class="elevator-floor">n=2</div>
+                <div class="elevator-floor">n=1<small>closest</small></div>
+              </div>
+              <div class="wing-title" style="grid-column:3; grid-row:1;">
+                <svg class="subshell-icon" viewBox="0 0 48 34" aria-hidden="true"><line class="axis" x1="5" y1="17" x2="43" y2="17"/><circle class="shape" cx="24" cy="17" r="10"/></svg>
+                s subshell<br><span class="small">ℓ = 0</span>
+              </div>
+              <div class="wing-title" style="grid-column:4; grid-row:1;">
+                <svg class="subshell-icon" viewBox="0 0 48 34" aria-hidden="true"><line class="axis" x1="5" y1="17" x2="43" y2="17"/><ellipse class="shape" cx="15" cy="17" rx="10" ry="7"/><ellipse class="shape" cx="33" cy="17" rx="10" ry="7"/></svg>
+                p subshell<br><span class="small">ℓ = 1</span>
+              </div>
+              <div class="wing-title" style="grid-column:5; grid-row:1;">
+                <svg class="subshell-icon" viewBox="0 0 48 34" aria-hidden="true"><ellipse class="shape" cx="15" cy="10" rx="8" ry="5" transform="rotate(-35 15 10)"/><ellipse class="shape" cx="33" cy="10" rx="8" ry="5" transform="rotate(35 33 10)"/><ellipse class="shape" cx="15" cy="24" rx="8" ry="5" transform="rotate(35 15 24)"/><ellipse class="shape" cx="33" cy="24" rx="8" ry="5" transform="rotate(-35 33 24)"/></svg>
+                d subshell<br><span class="small">ℓ = 2</span>
+              </div>
+              <div class="wing-title" style="grid-column:6; grid-row:1;">
+                <svg class="subshell-icon" viewBox="0 0 48 34" aria-hidden="true"><ellipse class="shape" cx="12" cy="9" rx="7" ry="4" transform="rotate(-35 12 9)"/><ellipse class="shape" cx="24" cy="9" rx="7" ry="4"/><ellipse class="shape" cx="36" cy="9" rx="7" ry="4" transform="rotate(35 36 9)"/><ellipse class="shape" cx="12" cy="25" rx="7" ry="4" transform="rotate(35 12 25)"/><ellipse class="shape" cx="24" cy="25" rx="7" ry="4"/><ellipse class="shape" cx="36" cy="25" rx="7" ry="4" transform="rotate(-35 36 25)"/></svg>
+                f subshell<br><span class="small">ℓ = 3</span>
+              </div>
+              <div id="energy-rooms"></div>
+              <div class="shell-silhouette" aria-hidden="true"></div>
+              <div class="nucleus-strip">NUCLEUS BASEMENT: closer floors feel stronger attraction</div>
+            </div>
+            <div class="legend-row">
+              <span class="legend-chip">Each box = one orbital room</span>
+              <span class="legend-chip">Side-by-side rooms in one subshell are degenerate</span>
+              <span class="legend-chip">↑ = m<sub>s</sub> +1/2</span>
+              <span class="legend-chip">↓ = m<sub>s</sub> -1/2</span>
+              <span class="legend-chip">s has 1 room, p has 3, d has 5, f has 7</span>
+            </div>
+          </div>
+
+          <aside class="address-card" aria-live="polite">
+            <h3>Hotelier's Guest Ledger</h3>
+            <p class="small">Click a guest arrow. The ledger shows the electron's full hotel address and why the managers placed it there.</p>
+            <div id="element-summary" class="element-summary">Choose an element to see its electron configuration.</div>
+            <div id="electron-address" class="address">Choose an electron arrow to see its address.</div>
+            <table class="tight">
+              <tbody>
+                <tr><th>Element</th><td id="ledger-element">-</td></tr>
+                <tr><th>Electronic configuration</th><td id="ledger-config">-</td></tr>
+                <tr><th>Magnetic behavior</th><td id="ledger-magnetism">-</td></tr>
+                <tr><th>n</th><td>floor number or main shell</td></tr>
+                <tr><th>ℓ</th><td>room type: s=0, p=1, d=2, f=3</td></tr>
+                <tr><th>m<sub>ℓ</sub></th><td>exact orbital room number</td></tr>
+                <tr><th>m<sub>s</sub></th><td>spin seat: +1/2 or -1/2</td></tr>
+              </tbody>
+            </table>
+          </aside>
+        </div>
+      </div>
+
+      <div id="bohr-view" class="sim-view" role="tabpanel">
+        <div class="grid two">
+          <div class="visual-panel shell-stage">
+            <svg viewBox="0 0 560 500" role="img">
+              <title>Bohr shell view with dashed atomic shells</title>
+              <circle cx="280" cy="250" r="34" fill="#2f3b44"/>
+              <text x="244" y="256" fill="#fff" font-size="15" font-weight="900">nucleus</text>
+              <circle cx="280" cy="250" r="66" fill="none" stroke="#9a6b00" stroke-width="3" stroke-dasharray="8 8"/>
+              <circle cx="280" cy="250" r="104" fill="none" stroke="#2364aa" stroke-width="3" stroke-dasharray="8 8"/>
+              <circle cx="280" cy="250" r="142" fill="none" stroke="#0d7f7a" stroke-width="3" stroke-dasharray="8 8"/>
+              <circle cx="280" cy="250" r="180" fill="none" stroke="#b54665" stroke-width="3" stroke-dasharray="8 8"/>
+              <circle cx="280" cy="250" r="218" fill="none" stroke="#56616a" stroke-width="2" stroke-dasharray="8 8"/>
+              <text x="352" y="248" font-size="16" font-weight="800" fill="#9a6b00">n=1</text>
+              <text x="390" y="226" font-size="16" font-weight="800" fill="#2364aa">n=2</text>
+              <text x="428" y="202" font-size="16" font-weight="800" fill="#0d7f7a">n=3</text>
+              <text x="466" y="176" font-size="16" font-weight="800" fill="#b54665">n=4...</text>
+              <circle cx="346" cy="250" r="9" fill="#b54665"/>
+              <circle cx="214" cy="250" r="9" fill="#b54665"/>
+              <circle cx="384" cy="250" r="9" fill="#b54665"/>
+              <circle cx="176" cy="250" r="9" fill="#b54665"/>
+              <circle cx="280" cy="146" r="9" fill="#b54665"/>
+              <circle cx="280" cy="354" r="9" fill="#b54665"/>
+            </svg>
+          </div>
+          <div class="card">
+            <h3>Atomic Shell View</h3>
+            <p>The dashed circles show shells around the nucleus, like a Bohr model. This is useful for seeing distance from the nucleus.</p>
+            <p><strong>Important bridge:</strong> Shells tell the floor, but quantum numbers give the full hotel address. A shell alone does not tell the room type, exact room, or spin seat.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="examples" class="grid two">
+      <article class="card">
+        <h2>Worked Example 1: 3p</h2>
+        <p><strong>Question:</strong> Give n, &ell;, m<sub>&ell;</sub>, number of orbitals, and max electrons for 3p.</p>
+        <p><strong>n = 3</strong> because the number is 3.</p>
+        <p><strong>&ell; = 1</strong> because p means 1.</p>
+        <p><strong>m<sub>&ell;</sub> = -1, 0, +1</strong>, so there are 3 orbitals.</p>
+        <p><strong>Max electrons = 6</strong> because 3 orbitals x 2 electrons each.</p>
+      </article>
+
+      <article class="card">
+        <h2>Worked Example 2: Element Configuration</h2>
+        <p><strong>Element:</strong> Calcium, atomic number 20.</p>
+        <p><strong>Configuration:</strong> 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup> 3p<sup>6</sup> 4s<sup>2</sup></p>
+        <p><strong>Last occupied sublevel:</strong> 4s.</p>
+        <p><strong>Predictions:</strong> n = 4, &ell; = 0, m<sub>&ell;</sub> = 0, one 4s orbital, max 2 electrons.</p>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Common Mistakes to Avoid</h2>
+      <div class="grid three">
+        <div><h3>1. &ell; cannot equal n</h3><p>If n = 2, allowed &ell; values are 0 and 1 only.</p></div>
+        <div><h3>2. m<sub>s</sub> is only spin</h3><p>m<sub>s</sub> must be +1/2 or -1/2. It is never 0, 1, or 2.</p></div>
+        <div><h3>3. One orbital holds two</h3><p>A sublevel may contain many orbitals, but each single orbital holds only 2 electrons.</p></div>
+      </div>
+    </section>
+
+    <section id="guided-practice" class="card">
+      <h2>Sample Problem: I Do, We Do, You Do</h2>
+      <p><strong>Skill focus:</strong> Determine the quantum numbers and orbital facts from an orbital label.</p>
+      <div class="practice-band">
+        <article class="practice-step">
+          <h3><span class="badge">I</span> I Do</h3>
+          <p><strong>Problem:</strong> Determine n, &ell;, possible m<sub>&ell;</sub> values, number of orbitals, and maximum electrons for <strong>3p</strong>.</p>
+          <p><strong>Step 1:</strong> The number is 3, so <strong>n = 3</strong>.</p>
+          <p><strong>Step 2:</strong> The letter is p. Since s=0, p=1, d=2, f=3, <strong>&ell; = 1</strong>.</p>
+          <p><strong>Step 3:</strong> m<sub>&ell;</sub> goes from -&ell; to +&ell;, so <strong>m<sub>&ell;</sub> = -1, 0, +1</strong>.</p>
+          <p><strong>Answer:</strong> 3 orbitals; maximum 6 electrons.</p>
+        </article>
+
+        <article class="practice-step">
+          <h3><span class="badge">We</span> We Do</h3>
+          <p><strong>Problem:</strong> Determine n, &ell;, possible m<sub>&ell;</sub> values, number of orbitals, and maximum electrons for <strong>4d</strong>.</p>
+          <p><strong>Together:</strong> The number is 4, so <strong>n = 4</strong>. The letter d means <strong>&ell; = 2</strong>.</p>
+          <p><strong>Finish:</strong> m<sub>&ell;</sub> values are <span class="line"></span></p>
+          <p><strong>Check:</strong> A d sublevel has <strong>5 orbitals</strong> and can hold <strong>10 electrons</strong>.</p>
+        </article>
+
+        <article class="practice-step">
+          <h3><span class="badge">You</span> You Do</h3>
+          <p><strong>Problem:</strong> Determine n, &ell;, possible m<sub>&ell;</sub> values, number of orbitals, and maximum electrons for <strong>5f</strong>.</p>
+          <p><strong>n =</strong> <span class="line"></span></p>
+          <p><strong>&ell; =</strong> <span class="line"></span></p>
+          <p><strong>m<sub>&ell;</sub> values:</strong> <span class="line"></span></p>
+          <p><strong>Orbitals and max electrons:</strong> <span class="line"></span></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="worksheets">
+      <h2>Worksheets</h2>
+      <div class="grid two">
+        <article class="card worksheet">
+          <h3>Worksheet A: Rearrange the Letters</h3>
+          <p class="small">Rearrange the letters of the correct term that is described by the corresponding statement. Write your answer on the space provided.</p>
+          <div class="question">1. <span class="line"></span> <strong>LAPNICRIP</strong> - It is the quantum number that represents the energy level the electron is in.</div>
+          <div class="question">2. <span class="line"></span> <strong>LATOBRI</strong> - It is a representation of the wave function of a hydrogen-like atom.</div>
+          <div class="question">3. <span class="line"></span> <strong>ALGANUR MUTMENMO</strong> - It is a quantum number that represents the shape of orbitals.</div>
+          <div class="question">4. <span class="line"></span> <strong>NOTRECLE</strong> - It is the particle that can be described by four quantum numbers.</div>
+          <div class="question">5. <span class="line"></span> <strong>MEGATINC</strong> - It represents the quantum number that describes the orientation of an orbital.</div>
+          <div class="question">6. <span class="line"></span> <strong>NEREGY EVELL</strong> - It is being represented by n.</div>
+          <div class="question">7. <span class="line"></span> <strong>RHEPES</strong> - It is the shape of the s orbital.</div>
+          <div class="question">8. <span class="line"></span> <strong>ROGUND EATTS</strong> - It is the most stable state of the electron in the hydrogen atom.</div>
+        </article>
+
+        <article class="card worksheet">
+          <h3>Worksheet B: Counting Orbitals and Electrons</h3>
+          <div class="question">1. How many orbitals are in n = 3? <span class="line"></span></div>
+          <div class="question">2. How many electrons can fit in n = 5? <span class="line"></span></div>
+          <div class="question">3. How many orbitals are in a d sublevel? <span class="line"></span></div>
+          <div class="question">4. How many electrons can fit in a p sublevel? <span class="line"></span></div>
+          <div class="question">5. State the number of possible electrons for n = 3, &ell; = 1. <span class="line"></span></div>
+          <div class="question">6. State the number of possible electrons for n = 4, &ell; = 2, m<sub>&ell;</sub> = -2. <span class="line"></span></div>
+          <div class="question">7. What is the highest sublevel possible when n = 4? <span class="line"></span></div>
+        </article>
+
+        <article class="card worksheet">
+          <h3>Worksheet C: Valid or Not?</h3>
+          <p class="small">Write valid or not valid. If not valid, explain the error.</p>
+          <div class="question">1. n = 2, &ell; = 2, m<sub>&ell;</sub> = 0, m<sub>s</sub> = -1/2 <span class="longline"></span></div>
+          <div class="question">2. n = 3, &ell; = 1, m<sub>&ell;</sub> = -1, m<sub>s</sub> = +1/2 <span class="longline"></span></div>
+          <div class="question">3. n = 3, &ell; = 0, m<sub>&ell;</sub> = 0, m<sub>s</sub> = 1 <span class="longline"></span></div>
+          <div class="question">4. n = 4, &ell; = 2, m<sub>&ell;</sub> = 3, m<sub>s</sub> = -1/2 <span class="longline"></span></div>
+          <div class="question">5. n = 5, &ell; = 3, m<sub>&ell;</sub> = 0, m<sub>s</sub> = -1/2 <span class="longline"></span></div>
+        </article>
+
+        <article class="card worksheet">
+          <h3>Worksheet D: Configuration Predictions</h3>
+          <div class="question">1. For <strong>3p</strong>, give n, &ell;, possible m<sub>&ell;</sub>, orbitals, and max electrons.<span class="longline"></span><span class="longline"></span></div>
+          <div class="question">2. For <strong>5f</strong>, give n, &ell;, possible m<sub>&ell;</sub>, orbitals, and max electrons.<span class="longline"></span><span class="longline"></span></div>
+          <div class="question">3. Write the full electron configuration of magnesium, Mg, atomic number 12.<span class="longline"></span></div>
+          <div class="question">4. What is the last occupied sublevel in chlorine, Cl, atomic number 17?<span class="longline"></span></div>
+          <div class="question">5. Predict n and &ell; for the last occupied sublevel of potassium, K, atomic number 19.<span class="longline"></span></div>
+        </article>
+
+        <article class="card worksheet">
+          <h3>Worksheet E: Principles and Magnetism</h3>
+          <div class="question">1. Which principle says electrons fill the lowest-energy orbitals first? <span class="line"></span></div>
+          <div class="question">2. Which principle says one orbital can hold only two opposite-spin electrons? <span class="line"></span></div>
+          <div class="question">3. Which rule says electrons enter equal-energy orbitals one at a time before pairing? <span class="line"></span></div>
+          <div class="question">4. Is an atom with one unpaired electron paramagnetic or diamagnetic? <span class="line"></span></div>
+          <div class="question">5. Is an atom with all electrons paired paramagnetic or diamagnetic? <span class="line"></span></div>
+          <div class="question">6. Carbon has the orbital diagram 1s: ↑↓, 2s: ↑↓, 2p: ↑ ↑ _. Is carbon paramagnetic or diamagnetic? Explain.<span class="longline"></span></div>
+          <div class="question">7. How can an orbital diagram show whether an atom is paramagnetic?<span class="longline"></span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="post-test" class="card">
+      <h2>Multiple Choice Assessment: 30 Items</h2>
+      <p class="small">Choose the best answer. The questions follow the learning path: quantum model, electron-configuration rules, quantum-number addresses, orbital capacity, and magnetic behavior.</p>
+      <form id="post-test-form" class="post-test-form">
+        <div class="grid two">
+          <div class="mc-question"><fieldset>
+            <legend>1. Which model describes electrons as probability regions instead of fixed paths?</legend>
+            <label class="mc-option"><input type="radio" name="q1" value="a"> a. Dalton model</label>
+            <label class="mc-option"><input type="radio" name="q1" value="b"> b. Thomson model</label>
+            <label class="mc-option"><input type="radio" name="q1" value="c"> c. Quantum mechanical model</label>
+            <label class="mc-option"><input type="radio" name="q1" value="d"> d. Solid sphere model</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>2. What is the main difference between an orbit and an orbital?</legend>
+            <label class="mc-option"><input type="radio" name="q2" value="a"> a. An orbit is a nucleus; an orbital is a neutron.</label>
+            <label class="mc-option"><input type="radio" name="q2" value="b"> b. An orbit is a fixed path; an orbital is a region where an electron is likely found.</label>
+            <label class="mc-option"><input type="radio" name="q2" value="c"> c. An orbit holds protons; an orbital holds neutrons.</label>
+            <label class="mc-option"><input type="radio" name="q2" value="d"> d. They mean exactly the same thing.</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>3. Why does the quantum mechanical model use probability?</legend>
+            <label class="mc-option"><input type="radio" name="q3" value="a"> a. Electrons have no charge.</label>
+            <label class="mc-option"><input type="radio" name="q3" value="b"> b. Electrons show wave-like behavior, so exact paths are not used.</label>
+            <label class="mc-option"><input type="radio" name="q3" value="c"> c. The nucleus moves outside the atom.</label>
+            <label class="mc-option"><input type="radio" name="q3" value="d"> d. Atoms do not contain electrons.</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>4. What does the Bohr model help learners visualize most simply?</legend>
+            <label class="mc-option"><input type="radio" name="q4" value="a"> a. Electron shells or energy levels around the nucleus</label>
+            <label class="mc-option"><input type="radio" name="q4" value="b"> b. The exact spin of every electron</label>
+            <label class="mc-option"><input type="radio" name="q4" value="c"> c. The exact shape of every f orbital</label>
+            <label class="mc-option"><input type="radio" name="q4" value="d"> d. The number of neutrons only</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>5. In the Atomic Hotel, what does the basement represent?</legend>
+            <label class="mc-option"><input type="radio" name="q5" value="a"> a. The valence shell</label>
+            <label class="mc-option"><input type="radio" name="q5" value="b"> b. The positively charged nucleus</label>
+            <label class="mc-option"><input type="radio" name="q5" value="c"> c. A p orbital</label>
+            <label class="mc-option"><input type="radio" name="q5" value="d"> d. An electron cloud only</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>6. In the Atomic Hotel, what does n represent?</legend>
+            <label class="mc-option"><input type="radio" name="q6" value="a"> a. The floor or main energy level</label>
+            <label class="mc-option"><input type="radio" name="q6" value="b"> b. The spin seat</label>
+            <label class="mc-option"><input type="radio" name="q6" value="c"> c. The exact room orientation</label>
+            <label class="mc-option"><input type="radio" name="q6" value="d"> d. The element name</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>7. In the Atomic Hotel, what does ℓ choose?</legend>
+            <label class="mc-option"><input type="radio" name="q7" value="a"> a. The number of protons</label>
+            <label class="mc-option"><input type="radio" name="q7" value="b"> b. The room type or sublevel</label>
+            <label class="mc-option"><input type="radio" name="q7" value="c"> c. The electron's charge</label>
+            <label class="mc-option"><input type="radio" name="q7" value="d"> d. The atomic mass</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>8. What does mℓ identify?</legend>
+            <label class="mc-option"><input type="radio" name="q8" value="a"> a. The shell letter only</label>
+            <label class="mc-option"><input type="radio" name="q8" value="b"> b. The total electrons in the atom</label>
+            <label class="mc-option"><input type="radio" name="q8" value="c"> c. The exact orbital room or orientation</label>
+            <label class="mc-option"><input type="radio" name="q8" value="d"> d. The element's period only</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>9. What are the only allowed values of ms?</legend>
+            <label class="mc-option"><input type="radio" name="q9" value="a"> a. 0 and 1</label>
+            <label class="mc-option"><input type="radio" name="q9" value="b"> b. -1, 0, +1</label>
+            <label class="mc-option"><input type="radio" name="q9" value="c"> c. +2 and -2</label>
+            <label class="mc-option"><input type="radio" name="q9" value="d"> d. +1/2 and -1/2</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>10. Why is n = 1 lower in energy than higher floors in the Atomic Hotel story?</legend>
+            <label class="mc-option"><input type="radio" name="q10" value="a"> a. It has no nucleus attraction.</label>
+            <label class="mc-option"><input type="radio" name="q10" value="b"> b. It is closer to the positive nucleus and held more tightly.</label>
+            <label class="mc-option"><input type="radio" name="q10" value="c"> c. It contains only neutrons.</label>
+            <label class="mc-option"><input type="radio" name="q10" value="d"> d. It is always empty.</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>11. Which principle says electrons fill lower-energy orbitals first?</legend>
+            <label class="mc-option"><input type="radio" name="q11" value="a"> a. Hund's rule</label>
+            <label class="mc-option"><input type="radio" name="q11" value="b"> b. Aufbau principle</label>
+            <label class="mc-option"><input type="radio" name="q11" value="c"> c. Pauli exclusion principle</label>
+            <label class="mc-option"><input type="radio" name="q11" value="d"> d. Periodic law</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>12. Which principle says two electrons in one orbital must have opposite spins?</legend>
+            <label class="mc-option"><input type="radio" name="q12" value="a"> a. Hund's rule</label>
+            <label class="mc-option"><input type="radio" name="q12" value="b"> b. Aufbau principle</label>
+            <label class="mc-option"><input type="radio" name="q12" value="c"> c. Pauli exclusion principle</label>
+            <label class="mc-option"><input type="radio" name="q12" value="d"> d. Law of conservation of mass</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>13. Which rule says electrons occupy equal-energy orbitals singly before pairing?</legend>
+            <label class="mc-option"><input type="radio" name="q13" value="a"> a. Hund's rule</label>
+            <label class="mc-option"><input type="radio" name="q13" value="b"> b. Aufbau principle</label>
+            <label class="mc-option"><input type="radio" name="q13" value="c"> c. Pauli exclusion principle</label>
+            <label class="mc-option"><input type="radio" name="q13" value="d"> d. Octet rule</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>14. Which is the correct beginning of the Aufbau filling order?</legend>
+            <label class="mc-option"><input type="radio" name="q14" value="a"> a. 1s, 2s, 2p, 3s</label>
+            <label class="mc-option"><input type="radio" name="q14" value="b"> b. 1p, 1s, 2d, 2s</label>
+            <label class="mc-option"><input type="radio" name="q14" value="c"> c. 3s, 2p, 2s, 1s</label>
+            <label class="mc-option"><input type="radio" name="q14" value="d"> d. 2s, 1s, 3p, 2p</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>15. Which is the correct electron configuration for magnesium, Mg, atomic number 12?</legend>
+            <label class="mc-option"><input type="radio" name="q15" value="a"> a. 1s² 2s² 2p⁶ 3s²</label>
+            <label class="mc-option"><input type="radio" name="q15" value="b"> b. 1s² 2s² 2p⁸</label>
+            <label class="mc-option"><input type="radio" name="q15" value="c"> c. 1s² 2s⁴ 2p⁶</label>
+            <label class="mc-option"><input type="radio" name="q15" value="d"> d. 1s² 3s² 3p⁸</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>16. For a neutral atom, the superscripts in the electron configuration should add up to the:</legend>
+            <label class="mc-option"><input type="radio" name="q16" value="a"> a. Mass number</label>
+            <label class="mc-option"><input type="radio" name="q16" value="b"> b. Atomic number</label>
+            <label class="mc-option"><input type="radio" name="q16" value="c"> c. Number of neutrons only</label>
+            <label class="mc-option"><input type="radio" name="q16" value="d"> d. Number of shells only</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>17. What is the maximum number of electrons in an s sublevel?</legend>
+            <label class="mc-option"><input type="radio" name="q17" value="a"> a. 2</label>
+            <label class="mc-option"><input type="radio" name="q17" value="b"> b. 6</label>
+            <label class="mc-option"><input type="radio" name="q17" value="c"> c. 10</label>
+            <label class="mc-option"><input type="radio" name="q17" value="d"> d. 14</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>18. What is the maximum number of electrons in a d sublevel?</legend>
+            <label class="mc-option"><input type="radio" name="q18" value="a"> a. 2</label>
+            <label class="mc-option"><input type="radio" name="q18" value="b"> b. 6</label>
+            <label class="mc-option"><input type="radio" name="q18" value="c"> c. 10</label>
+            <label class="mc-option"><input type="radio" name="q18" value="d"> d. 14</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>19. What is the maximum number of electrons in an f sublevel?</legend>
+            <label class="mc-option"><input type="radio" name="q19" value="a"> a. 2</label>
+            <label class="mc-option"><input type="radio" name="q19" value="b"> b. 6</label>
+            <label class="mc-option"><input type="radio" name="q19" value="c"> c. 10</label>
+            <label class="mc-option"><input type="radio" name="q19" value="d"> d. 14</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>20. How many orbitals are in a p sublevel?</legend>
+            <label class="mc-option"><input type="radio" name="q20" value="a"> a. 1</label>
+            <label class="mc-option"><input type="radio" name="q20" value="b"> b. 2</label>
+            <label class="mc-option"><input type="radio" name="q20" value="c"> c. 3</label>
+            <label class="mc-option"><input type="radio" name="q20" value="d"> d. 5</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>21. What are the possible mℓ values for a d sublevel?</legend>
+            <label class="mc-option"><input type="radio" name="q21" value="a"> a. 0 only</label>
+            <label class="mc-option"><input type="radio" name="q21" value="b"> b. -1, 0, +1</label>
+            <label class="mc-option"><input type="radio" name="q21" value="c"> c. -2, -1, 0, +1, +2</label>
+            <label class="mc-option"><input type="radio" name="q21" value="d"> d. -3 to +3</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>22. What is the correct n and ℓ pair for 5f?</legend>
+            <label class="mc-option"><input type="radio" name="q22" value="a"> a. n = 5, ℓ = 0</label>
+            <label class="mc-option"><input type="radio" name="q22" value="b"> b. n = 5, ℓ = 1</label>
+            <label class="mc-option"><input type="radio" name="q22" value="c"> c. n = 5, ℓ = 2</label>
+            <label class="mc-option"><input type="radio" name="q22" value="d"> d. n = 5, ℓ = 3</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>23. Which set is valid for a 3p electron?</legend>
+            <label class="mc-option"><input type="radio" name="q23" value="a"> a. n = 3, ℓ = 1, mℓ = 0, ms = +1/2</label>
+            <label class="mc-option"><input type="radio" name="q23" value="b"> b. n = 3, ℓ = 3, mℓ = 0, ms = +1/2</label>
+            <label class="mc-option"><input type="radio" name="q23" value="c"> c. n = 3, ℓ = 1, mℓ = 2, ms = +1/2</label>
+            <label class="mc-option"><input type="radio" name="q23" value="d"> d. n = 3, ℓ = 1, mℓ = 0, ms = 1</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>24. How many total orbitals are in shell n = 4?</legend>
+            <label class="mc-option"><input type="radio" name="q24" value="a"> a. 4</label>
+            <label class="mc-option"><input type="radio" name="q24" value="b"> b. 8</label>
+            <label class="mc-option"><input type="radio" name="q24" value="c"> c. 16</label>
+            <label class="mc-option"><input type="radio" name="q24" value="d"> d. 32</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>25. How many total electrons can shell n = 4 hold?</legend>
+            <label class="mc-option"><input type="radio" name="q25" value="a"> a. 8</label>
+            <label class="mc-option"><input type="radio" name="q25" value="b"> b. 16</label>
+            <label class="mc-option"><input type="radio" name="q25" value="c"> c. 32</label>
+            <label class="mc-option"><input type="radio" name="q25" value="d"> d. 50</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>26. An atom with at least one unpaired electron is:</legend>
+            <label class="mc-option"><input type="radio" name="q26" value="a"> a. Diamagnetic</label>
+            <label class="mc-option"><input type="radio" name="q26" value="b"> b. Paramagnetic</label>
+            <label class="mc-option"><input type="radio" name="q26" value="c"> c. Neutralized</label>
+            <label class="mc-option"><input type="radio" name="q26" value="d"> d. A nucleus</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>27. An atom with all occupied orbitals paired is:</legend>
+            <label class="mc-option"><input type="radio" name="q27" value="a"> a. Paramagnetic</label>
+            <label class="mc-option"><input type="radio" name="q27" value="b"> b. Diamagnetic</label>
+            <label class="mc-option"><input type="radio" name="q27" value="c"> c. Always radioactive</label>
+            <label class="mc-option"><input type="radio" name="q27" value="d"> d. Always ionic</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>28. Carbon has 1s² 2s² 2p². According to Hund's rule, the two 2p electrons should be:</legend>
+            <label class="mc-option"><input type="radio" name="q28" value="a"> a. Paired immediately in one 2p orbital</label>
+            <label class="mc-option"><input type="radio" name="q28" value="b"> b. Placed singly in two different 2p orbitals with parallel spins</label>
+            <label class="mc-option"><input type="radio" name="q28" value="c"> c. Moved back into the 1s orbital</label>
+            <label class="mc-option"><input type="radio" name="q28" value="d"> d. Written as 2p⁸</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>29. How many electrons are represented by 2p⁴?</legend>
+            <label class="mc-option"><input type="radio" name="q29" value="a"> a. 2</label>
+            <label class="mc-option"><input type="radio" name="q29" value="b"> b. 4</label>
+            <label class="mc-option"><input type="radio" name="q29" value="c"> c. 6</label>
+            <label class="mc-option"><input type="radio" name="q29" value="d"> d. 8</label>
+          </fieldset></div>
+          <div class="mc-question"><fieldset>
+            <legend>30. Which formula gives the total number of orbitals in shell n?</legend>
+            <label class="mc-option"><input type="radio" name="q30" value="a"> a. n</label>
+            <label class="mc-option"><input type="radio" name="q30" value="b"> b. 2n</label>
+            <label class="mc-option"><input type="radio" name="q30" value="c"> c. n²</label>
+            <label class="mc-option"><input type="radio" name="q30" value="d"> d. 2n²</label>
+          </fieldset></div>
+        </div>
+        <div class="test-actions">
+          <button type="button" id="check-post-test">Check Assessment</button>
+          <button type="reset" id="reset-post-test">Reset</button>
+          <span id="post-test-score" class="score-box" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section id="answers" class="card answer-key">
+      <h2>Answer Key</h2>
+      <details open>
+        <summary>Show answers</summary>
+        <div class="grid two" style="margin-top:12px;">
+          <div>
+            <h3>Worksheet A</h3>
+            <p>1. Principal<br>2. Orbital<br>3. Angular momentum<br>4. Electron<br>5. Magnetic<br>6. Energy level<br>7. Sphere<br>8. Ground state</p>
+            <h3>Worksheet B</h3>
+            <p>1. 9 orbitals<br>2. 50 electrons<br>3. 5 orbitals<br>4. 6 electrons<br>5. 6 electrons<br>6. 2 electrons<br>7. f sublevel</p>
+          </div>
+          <div>
+            <h3>Worksheet C</h3>
+            <p>1. Not valid; when n = 2, &ell; can only be 0 or 1.<br>2. Valid.<br>3. Not valid; m<sub>s</sub> must be +1/2 or -1/2.<br>4. Not valid; for &ell; = 2, m<sub>&ell;</sub> can only be -2 to +2.<br>5. Valid.</p>
+            <h3>Worksheet D</h3>
+            <p>1. n = 3, &ell; = 1, m<sub>&ell;</sub> = -1, 0, +1; 3 orbitals; 6 electrons.<br>2. n = 5, &ell; = 3, m<sub>&ell;</sub> = -3 to +3; 7 orbitals; 14 electrons.<br>3. 1s<sup>2</sup> 2s<sup>2</sup> 2p<sup>6</sup> 3s<sup>2</sup>.<br>4. 3p.<br>5. 4s, so n = 4 and &ell; = 0.</p>
+            <h3>Worksheet E</h3>
+            <p>1. Aufbau principle.<br>2. Pauli exclusion principle.<br>3. Hund's rule.<br>4. Paramagnetic.<br>5. Diamagnetic.<br>6. Paramagnetic, because carbon has unpaired 2p electrons.<br>7. It shows whether any orbital has an unpaired electron; unpaired electrons make an atom paramagnetic.</p>
+            <h3>Assessment</h3>
+            <p>1. c<br>2. b<br>3. b<br>4. a<br>5. b<br>6. a<br>7. b<br>8. c<br>9. d<br>10. b<br>11. b<br>12. c<br>13. a<br>14. a<br>15. a<br>16. b<br>17. a<br>18. c<br>19. d<br>20. c<br>21. c<br>22. d<br>23. a<br>24. c<br>25. c<br>26. b<br>27. b<br>28. b<br>29. b<br>30. c</p>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+  <script>
+    function enhanceSectionAccordions() {
+      const titleMap = {
+        "competency-1": "Competency 1: Development of the Quantum Mechanical Model",
+        "competency-2": "Competency 2: Writing Electronic Configurations",
+        "cheatsheet": "Competency 3: Energy Levels, Sublevels, and Orbitals",
+        "orbitals": "Orbital Shapes at a Glance",
+        "atom-building": "The Atomic Hotel for Electrons",
+        "examples": "Worked Examples",
+        "guided-practice": "I Do / We Do / You Do",
+        "worksheets": "Worksheets",
+        "post-test": "Multiple Choice Assessment",
+        "answers": "Answer Key"
+      };
+
+      document.querySelectorAll("main > section").forEach((section, index) => {
+        if (section.id === "target" || section.querySelector(":scope > details.section-details")) return;
+
+        const directHeading = section.querySelector(":scope > h2");
+        const directLabel = section.querySelector(":scope > .competency-label");
+        const firstHeading = directHeading || section.querySelector("h2");
+        const title = titleMap[section.id] || (firstHeading ? firstHeading.textContent : `Subtopic ${index}`);
+
+        const details = document.createElement("details");
+        details.className = "section-details";
+        if (section.id === "competency-1") details.open = true;
+
+        const summary = document.createElement("summary");
+        summary.innerHTML = directLabel
+          ? `<span>${directLabel.textContent}: ${directHeading ? directHeading.textContent : title}</span>`
+          : `<span>${title}</span>`;
+
+        const content = document.createElement("div");
+        content.className = "section-accordion-content";
+
+        Array.from(section.childNodes).forEach((node) => {
+          if (node === directHeading || node === directLabel) return;
+          content.appendChild(node);
+        });
+
+        details.appendChild(summary);
+        details.appendChild(content);
+        section.appendChild(details);
+        section.classList.add("accordion-shell");
+      });
+
+      function openHashSection() {
+        const id = window.location.hash.slice(1);
+        if (!id) return;
+        const section = document.getElementById(id);
+        const details = section ? section.querySelector(":scope > details.section-details") : null;
+        if (details) details.open = true;
+      }
+
+      openHashSection();
+      window.addEventListener("hashchange", openHashSection);
+    }
+
+    enhanceSectionAccordions();
+
+    const hotelTabs = document.querySelectorAll(".sim-tab");
+    const hotelViews = document.querySelectorAll(".sim-view");
+    hotelTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const viewId = tab.dataset.view;
+        hotelTabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+        hotelViews.forEach((view) => view.classList.toggle("active", view.id === viewId));
+      });
+    });
+
+    const addressBox = document.querySelector("#electron-address");
+    document.querySelectorAll(".electron-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        addressBox.textContent = button.dataset.address;
+      });
+    });
+
+    const elements = [
+      ["H","Hydrogen"],["He","Helium"],["Li","Lithium"],["Be","Beryllium"],["B","Boron"],["C","Carbon"],["N","Nitrogen"],["O","Oxygen"],["F","Fluorine"],["Ne","Neon"],
+      ["Na","Sodium"],["Mg","Magnesium"],["Al","Aluminum"],["Si","Silicon"],["P","Phosphorus"],["S","Sulfur"],["Cl","Chlorine"],["Ar","Argon"],["K","Potassium"],["Ca","Calcium"],
+      ["Sc","Scandium"],["Ti","Titanium"],["V","Vanadium"],["Cr","Chromium"],["Mn","Manganese"],["Fe","Iron"],["Co","Cobalt"],["Ni","Nickel"],["Cu","Copper"],["Zn","Zinc"],
+      ["Ga","Gallium"],["Ge","Germanium"],["As","Arsenic"],["Se","Selenium"],["Br","Bromine"],["Kr","Krypton"],["Rb","Rubidium"],["Sr","Strontium"],["Y","Yttrium"],["Zr","Zirconium"],
+      ["Nb","Niobium"],["Mo","Molybdenum"],["Tc","Technetium"],["Ru","Ruthenium"],["Rh","Rhodium"],["Pd","Palladium"],["Ag","Silver"],["Cd","Cadmium"],["In","Indium"],["Sn","Tin"],
+      ["Sb","Antimony"],["Te","Tellurium"],["I","Iodine"],["Xe","Xenon"],["Cs","Cesium"],["Ba","Barium"],["La","Lanthanum"],["Ce","Cerium"],["Pr","Praseodymium"],["Nd","Neodymium"],
+      ["Pm","Promethium"],["Sm","Samarium"],["Eu","Europium"],["Gd","Gadolinium"],["Tb","Terbium"],["Dy","Dysprosium"],["Ho","Holmium"],["Er","Erbium"],["Tm","Thulium"],["Yb","Ytterbium"],
+      ["Lu","Lutetium"],["Hf","Hafnium"],["Ta","Tantalum"],["W","Tungsten"],["Re","Rhenium"],["Os","Osmium"],["Ir","Iridium"],["Pt","Platinum"],["Au","Gold"],["Hg","Mercury"],
+      ["Tl","Thallium"],["Pb","Lead"],["Bi","Bismuth"],["Po","Polonium"],["At","Astatine"],["Rn","Radon"],["Fr","Francium"],["Ra","Radium"],["Ac","Actinium"],["Th","Thorium"],
+      ["Pa","Protactinium"],["U","Uranium"],["Np","Neptunium"],["Pu","Plutonium"],["Am","Americium"],["Cm","Curium"],["Bk","Berkelium"],["Cf","Californium"],["Es","Einsteinium"],["Fm","Fermium"],
+      ["Md","Mendelevium"],["No","Nobelium"],["Lr","Lawrencium"],["Rf","Rutherfordium"],["Db","Dubnium"],["Sg","Seaborgium"],["Bh","Bohrium"],["Hs","Hassium"],["Mt","Meitnerium"],["Ds","Darmstadtium"],
+      ["Rg","Roentgenium"],["Cn","Copernicium"],["Nh","Nihonium"],["Fl","Flerovium"],["Mc","Moscovium"],["Lv","Livermorium"],["Ts","Tennessine"],["Og","Oganesson"]
+    ].map(([symbol, name], index) => ({ atomicNumber: index + 1, symbol, name }));
+
+    const periodicLayoutRows = [
+      [["H",1,1],["He",1,18]],
+      [["Li",2,1],["Be",2,2],["B",2,13],["C",2,14],["N",2,15],["O",2,16],["F",2,17],["Ne",2,18]],
+      [["Na",3,1],["Mg",3,2],["Al",3,13],["Si",3,14],["P",3,15],["S",3,16],["Cl",3,17],["Ar",3,18]],
+      [["K",4,1],["Ca",4,2],["Sc",4,3],["Ti",4,4],["V",4,5],["Cr",4,6],["Mn",4,7],["Fe",4,8],["Co",4,9],["Ni",4,10],["Cu",4,11],["Zn",4,12],["Ga",4,13],["Ge",4,14],["As",4,15],["Se",4,16],["Br",4,17],["Kr",4,18]],
+      [["Rb",5,1],["Sr",5,2],["Y",5,3],["Zr",5,4],["Nb",5,5],["Mo",5,6],["Tc",5,7],["Ru",5,8],["Rh",5,9],["Pd",5,10],["Ag",5,11],["Cd",5,12],["In",5,13],["Sn",5,14],["Sb",5,15],["Te",5,16],["I",5,17],["Xe",5,18]],
+      [["Cs",6,1],["Ba",6,2],["Hf",6,4],["Ta",6,5],["W",6,6],["Re",6,7],["Os",6,8],["Ir",6,9],["Pt",6,10],["Au",6,11],["Hg",6,12],["Tl",6,13],["Pb",6,14],["Bi",6,15],["Po",6,16],["At",6,17],["Rn",6,18]],
+      [["Fr",7,1],["Ra",7,2],["Rf",7,4],["Db",7,5],["Sg",7,6],["Bh",7,7],["Hs",7,8],["Mt",7,9],["Ds",7,10],["Rg",7,11],["Cn",7,12],["Nh",7,13],["Fl",7,14],["Mc",7,15],["Lv",7,16],["Ts",7,17],["Og",7,18]],
+      [["La",8,3],["Ce",8,4],["Pr",8,5],["Nd",8,6],["Pm",8,7],["Sm",8,8],["Eu",8,9],["Gd",8,10],["Tb",8,11],["Dy",8,12],["Ho",8,13],["Er",8,14],["Tm",8,15],["Yb",8,16],["Lu",8,17]],
+      [["Ac",9,3],["Th",9,4],["Pa",9,5],["U",9,6],["Np",9,7],["Pu",9,8],["Am",9,9],["Cm",9,10],["Bk",9,11],["Cf",9,12],["Es",9,13],["Fm",9,14],["Md",9,15],["No",9,16],["Lr",9,17]]
+    ];
+
+    const periodicMeta = {};
+    periodicLayoutRows.flat().forEach(([symbol, row, group]) => {
+      let block = "p";
+      if (row >= 8) block = "f";
+      else if (group <= 2 || symbol === "He") block = "s";
+      else if (group >= 3 && group <= 12) block = "d";
+      periodicMeta[symbol] = { row, group, block };
+    });
+
+    elements.forEach((element) => {
+      Object.assign(element, periodicMeta[element.symbol] || { row: 1, group: 1, block: "s" });
+    });
+
+    const subshellInfo = {
+      s: { l: 0, ml: [0], column: 3, className: "subshell-s" },
+      p: { l: 1, ml: [-1, 0, 1], column: 4, className: "subshell-p" },
+      d: { l: 2, ml: [-2, -1, 0, 1, 2], column: 5, className: "subshell-d" },
+      f: { l: 3, ml: [-3, -2, -1, 0, 1, 2, 3], column: 6, className: "subshell-f" }
+    };
+
+    const fillOrder = ["1s","2s","2p","3s","3p","4s","3d","4p","5s","4d","5p","6s","4f","5d","6p","7s","5f","6d","7p"];
+    const displayOrder = ["7p","6d","5f","7s","6p","5d","4f","6s","5p","4d","5s","4p","3d","4s","3p","3s","2p","2s","1s"];
+    const superscripts = {"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};
+
+    function sup(number) {
+      return String(number).split("").map((digit) => superscripts[digit] || digit).join("");
+    }
+
+    function splitOrbital(label) {
+      return { n: Number(label[0]), sub: label.slice(1) };
+    }
+
+    function buildConfiguration(atomicNumber) {
+      let remaining = atomicNumber;
+      const config = {};
+      fillOrder.forEach((label) => {
+        const { sub } = splitOrbital(label);
+        const capacity = subshellInfo[sub].ml.length * 2;
+        const count = Math.max(0, Math.min(capacity, remaining));
+        config[label] = count;
+        remaining -= count;
+      });
+      return config;
+    }
+
+    function configText(config) {
+      return fillOrder
+        .filter((label) => config[label] > 0)
+        .map((label) => `${label}${sup(config[label])}`)
+        .join(" ");
+    }
+
+    function configTerms(config) {
+      let running = 0;
+      return fillOrder
+        .filter((label) => config[label] > 0)
+        .map((label) => {
+          const { n, sub } = splitOrbital(label);
+          const count = config[label];
+          const start = running + 1;
+          running += count;
+          return { label, n, sub, count, start, end: running };
+        });
+    }
+
+    const nobleGasCores = [
+      { atomicNumber: 2, symbol: "He", name: "helium" },
+      { atomicNumber: 10, symbol: "Ne", name: "neon" },
+      { atomicNumber: 18, symbol: "Ar", name: "argon" },
+      { atomicNumber: 36, symbol: "Kr", name: "krypton" },
+      { atomicNumber: 54, symbol: "Xe", name: "xenon" },
+      { atomicNumber: 86, symbol: "Rn", name: "radon" }
+    ];
+
+    function previousNobleGas(atomicNumber) {
+      return [...nobleGasCores].reverse().find((gas) => gas.atomicNumber < atomicNumber) || null;
+    }
+
+    function termMarkup(term, coreAtomicNumber, valenceN) {
+      const classes = [`config-term`, `block-${term.sub}`];
+      if (coreAtomicNumber && term.end <= coreAtomicNumber) classes.push("core");
+      if (term.n === valenceN) classes.push("valence");
+      return `<span class="${classes.join(" ")}">${term.label}${sup(term.count)}</span>`;
+    }
+
+    function fullConfigMarkup(config, coreAtomicNumber = 0) {
+      const terms = configTerms(config);
+      const valenceN = Math.max(...terms.map((term) => term.n));
+      return terms.map((term) => termMarkup(term, coreAtomicNumber, valenceN)).join(" ");
+    }
+
+    function condensedConfigMarkup(config, core) {
+      const terms = configTerms(config);
+      const valenceN = Math.max(...terms.map((term) => term.n));
+      if (!core) return terms.map((term) => termMarkup(term, 0, valenceN)).join(" ");
+      const remainder = terms
+        .filter((term) => term.end > core.atomicNumber)
+        .map((term) => termMarkup(term, 0, valenceN))
+        .join(" ");
+      return `<span class="config-term core">[${core.symbol}]</span>${remainder ? " " + remainder : ""}`;
+    }
+
+    function dExceptionAlternative(config) {
+      for (const label of fillOrder) {
+        const { n, sub } = splitOrbital(label);
+        if (sub !== "d") continue;
+        const sLabel = `${n + 1}s`;
+        const dCount = config[label] || 0;
+        const sCount = config[sLabel] || 0;
+        if (sCount === 2 && (dCount === 4 || dCount === 9)) {
+          const adjusted = { ...config, [sLabel]: 1, [label]: dCount + 1 };
+          const target = dCount === 4 ? "half-filled d⁵" : "fully-filled d¹⁰";
+          return { adjusted, dLabel: label, sLabel, target, kind: dCount === 4 ? "d4" : "d9" };
+        }
+      }
+      return null;
+    }
+
+    function orbitalElectrons(label, count, element) {
+      const { n, sub } = splitOrbital(label);
+      const info = subshellInfo[sub];
+      const rooms = info.ml.map((ml) => []);
+      let guestNumber = 1;
+      for (let i = 0; i < Math.min(count, rooms.length); i += 1) {
+        rooms[i].push({ arrow: "↑", ms: "+1/2", n, sub, l: info.l, ml: info.ml[i], label, element, guestNumber: guestNumber++ });
+      }
+      for (let i = 0; i < count - rooms.length; i += 1) {
+        rooms[i].push({ arrow: "↓", ms: "-1/2", n, sub, l: info.l, ml: info.ml[i], label, element, guestNumber: guestNumber++ });
+      }
+      return rooms;
+    }
+
+    function magneticBehavior(config, element) {
+      let unpaired = 0;
+      fillOrder.forEach((label) => {
+        const rooms = orbitalElectrons(label, config[label] || 0, element);
+        unpaired += rooms.filter((room) => room.length === 1).length;
+      });
+      return {
+        unpaired,
+        label: unpaired > 0 ? "Paramagnetic" : "Diamagnetic",
+        reason: unpaired > 0
+          ? `${unpaired} unpaired electron${unpaired === 1 ? "" : "s"}`
+          : "all occupied orbitals are paired"
+      };
+    }
+
+    function renderHotel() {
+      const select = document.querySelector("#element-select");
+      const element = elements[Number(select.value) - 1];
+      const config = buildConfiguration(element.atomicNumber);
+      const configString = configText(config);
+      const magnetism = magneticBehavior(config, element);
+      const roomsRoot = document.querySelector("#energy-rooms");
+      roomsRoot.innerHTML = "";
+
+      document.querySelector("#ledger-element").textContent = `${element.name} (${element.symbol}), Z = ${element.atomicNumber}`;
+      document.querySelector("#ledger-config").textContent = configString;
+      document.querySelector("#ledger-magnetism").textContent = `${magnetism.label} (${magnetism.reason})`;
+      document.querySelector("#element-summary").innerHTML = `<strong>${element.name} (${element.symbol})</strong>, atomic number ${element.atomicNumber}<br><strong>Electronic configuration:</strong> ${configString}<br><strong>Magnetic behavior:</strong> ${magnetism.label} because ${magnetism.reason}.<br><span class="small">Click any electron arrow in the hotel to inspect its quantum-number address.</span>`;
+      addressBox.textContent = "Choose an electron arrow to see its address.";
+
+      displayOrder.forEach((label, index) => {
+        const { n, sub } = splitOrbital(label);
+        const info = subshellInfo[sub];
+        const floor = document.createElement("div");
+        floor.className = "energy-floor";
+        floor.style.gridColumn = info.column;
+        floor.style.gridRow = index + 2;
+        floor.innerHTML = `<span class="floor-tag">n=${n} | ${label} subshell | ℓ=${info.l}</span>`;
+
+        const roomWrap = document.createElement("div");
+        roomWrap.className = "orbital-rooms";
+        const rooms = orbitalElectrons(label, config[label] || 0, element);
+        rooms.forEach((room, roomIndex) => {
+          const cell = document.createElement("div");
+          cell.className = "orbital-cell";
+          const box = document.createElement("div");
+          box.className = `orbital-room ${info.className}`;
+          box.title = `${label} orbital room, mℓ = ${info.ml[roomIndex]}`;
+          room.forEach((electron) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "hotel-electron";
+            button.textContent = electron.arrow;
+            button.addEventListener("click", () => {
+              const managerNote = electron.ms === "+1/2"
+                ? "Hund may place this guest singly first when equal-energy rooms are available."
+                : "Pauli allows this second guest only because it has the opposite spin seat.";
+              addressBox.innerHTML = `<strong>${element.name} (${element.symbol})</strong><br><strong>Electronic configuration:</strong> ${configString}<br><strong>Magnetic behavior:</strong> ${magnetism.label} (${magnetism.reason})<br><strong>Clicked electron:</strong> ${label} guest ${electron.guestNumber}<br><strong>Quantum-number address:</strong> n = ${electron.n}, ℓ = ${electron.l}, m<sub>ℓ</sub> = ${electron.ml}, m<sub>s</sub> = ${electron.ms}<br><strong>Hotel translation:</strong> floor ${electron.n}, ${electron.sub} subshell, room m<sub>ℓ</sub> = ${electron.ml}, spin seat ${electron.ms}. ${managerNote}`;
+            });
+            box.appendChild(button);
+          });
+          const labelNode = document.createElement("div");
+          labelNode.className = "orbital-label";
+          labelNode.innerHTML = `ℓ=${info.l}<br>m<sub>ℓ</sub>=${info.ml[roomIndex]}`;
+          cell.appendChild(box);
+          cell.appendChild(labelNode);
+          roomWrap.appendChild(cell);
+        });
+        floor.appendChild(roomWrap);
+        roomsRoot.appendChild(floor);
+      });
+    }
+
+    const elementSelect = document.querySelector("#element-select");
+    if (elementSelect) {
+      elementSelect.innerHTML = elements.map((el) => `<option value="${el.atomicNumber}">${el.atomicNumber}. ${el.name} (${el.symbol})</option>`).join("");
+      elementSelect.value = "6";
+      elementSelect.addEventListener("change", renderHotel);
+      renderHotel();
+    }
+
+    function renderPeriodicTable(selectedAtomicNumber = 13) {
+      const table = document.querySelector("#periodic-table");
+      const title = document.querySelector("#ptable-title");
+      if (!table || !title) return;
+
+      if (!table.dataset.ready) {
+        const headerLabels = [
+          "s1","s2","d1","d2","d3","d4","d5","d6","d7","d8","d9","d10","p1","p2","p3","p4","p5","p6"
+        ];
+        headerLabels.forEach((label, index) => {
+          const cell = document.createElement("div");
+          cell.className = `ptable-label block-${label[0]}`;
+          cell.style.gridColumn = index + 2;
+          cell.style.gridRow = 1;
+          cell.textContent = label;
+          table.appendChild(cell);
+        });
+
+        for (let period = 1; period <= 7; period += 1) {
+          const label = document.createElement("div");
+          label.className = "ptable-label period-label";
+          label.style.gridColumn = 1;
+          label.style.gridRow = period + 1;
+          label.textContent = `Period ${period}`;
+          table.appendChild(label);
+        }
+
+        ["f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12","f13","f14"].forEach((label, index) => {
+          const cell = document.createElement("div");
+          cell.className = "ptable-label f-position-label";
+          cell.style.gridColumn = index + 5;
+          cell.style.gridRow = 11;
+          cell.textContent = label;
+          table.appendChild(cell);
+        });
+
+        [["Period 6", 8], ["Period 7", 9]].forEach(([text, row]) => {
+          const label = document.createElement("div");
+          label.className = "ptable-label period-label";
+          label.style.gridColumn = 1;
+          label.style.gridRow = row + 1;
+          label.textContent = text;
+          table.appendChild(label);
+        });
+
+        elements.forEach((element) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = `element-tile block-${element.block}`;
+          button.style.gridColumn = element.group + 1;
+          button.style.gridRow = element.row + 1;
+          button.dataset.atomicNumber = element.atomicNumber;
+          button.innerHTML = `<span class="atomic-number">${element.atomicNumber}</span><span class="symbol">${element.symbol}</span>`;
+          button.addEventListener("click", () => renderPeriodicTable(element.atomicNumber));
+          table.appendChild(button);
+        });
+        table.dataset.ready = "true";
+      }
+
+      const element = elements[selectedAtomicNumber - 1];
+      const config = buildConfiguration(element.atomicNumber);
+      const core = previousNobleGas(element.atomicNumber);
+      const coreConfig = core ? buildConfiguration(core.atomicNumber) : null;
+      const exception = dExceptionAlternative(config);
+      const terms = configTerms(config);
+      const valenceN = Math.max(...terms.map((term) => term.n));
+      const valenceElectrons = terms
+        .filter((term) => term.n === valenceN)
+        .reduce((sum, term) => sum + term.count, 0);
+
+      table.querySelectorAll(".element-tile").forEach((tile) => {
+        tile.classList.toggle("active", Number(tile.dataset.atomicNumber) === selectedAtomicNumber);
+      });
+
+      document.querySelector("#ptable-title").textContent = `${element.name} (${element.symbol}), Z = ${element.atomicNumber}`;
+      document.querySelector("#ptable-summary").innerHTML = `<strong>${element.block.toUpperCase()} block</strong>: this element sits in the ${element.block} block, so the block label points to the sublevel family being filled in that region.`;
+      document.querySelector("#ptable-full").innerHTML = fullConfigMarkup(config, core ? core.atomicNumber : 0);
+      document.querySelector("#ptable-core").innerHTML = core
+        ? fullConfigMarkup(coreConfig, core.atomicNumber)
+        : `<span class="config-term">No earlier noble gas</span>`;
+      document.querySelector("#ptable-core-note").innerHTML = core
+        ? `The dark-highlighted terms in the full configuration are the complete noble-gas core. In condensed notation, that whole repeated stable core is replaced by <strong>[${core.symbol}]</strong>.`
+        : `Hydrogen and helium do not have an earlier noble gas to use as a core.`;
+      document.querySelector("#ptable-condensed").innerHTML = condensedConfigMarkup(config, core);
+      document.querySelector("#ptable-alternative").innerHTML = exception
+        ? `<strong>Common alternative for ${exception.kind === "d4" ? "d⁴" : "d⁹"} cases:</strong> ${condensedConfigMarkup(exception.adjusted, core)}<br>One electron shifts from ${exception.sLabel} to ${exception.dLabel}, giving a more stable ${exception.target} arrangement. Half-filled d<sup>5</sup> and fully-filled d<sup>10</sup> subshells are especially stable because electrons are spread or paired symmetrically in equal-energy d orbitals.`
+        : `<strong>Alternative d-rule:</strong> When the simple Aufbau pattern ends in d<sup>4</sup> or d<sup>9</sup> with s<sup>2</sup>, one s electron may shift into d to make a more stable half-filled d<sup>5</sup> or fully-filled d<sup>10</sup> subshell.`;
+      document.querySelector("#ptable-explain").innerHTML = core
+        ? `<strong>Why use noble gas in condensed form?</strong> It shortens long configurations and helps us focus on the outer electrons that control most chemical behavior. <strong>Valence shell:</strong> n = ${valenceN}, with ${valenceElectrons} electron${valenceElectrons === 1 ? "" : "s"} in the highest main energy level.`
+        : `<strong>Noble-gas core:</strong> none yet. <strong>Valence shell:</strong> n = ${valenceN}, with ${valenceElectrons} electron${valenceElectrons === 1 ? "" : "s"}.`;
+    }
+
+    renderPeriodicTable();
+
+    const mnemonicResult = document.querySelector("#mnemonic-result");
+    document.querySelectorAll(".mnemonic-step").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".mnemonic-step").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        mnemonicResult.innerHTML = `<strong>Diagonal ${button.textContent}:</strong> ${button.dataset.order}`;
+      });
+    });
+
+    const postTestAnswers = {
+      q1: "c",
+      q2: "b",
+      q3: "b",
+      q4: "a",
+      q5: "b",
+      q6: "a",
+      q7: "b",
+      q8: "c",
+      q9: "d",
+      q10: "b",
+      q11: "b",
+      q12: "c",
+      q13: "a",
+      q14: "a",
+      q15: "a",
+      q16: "b",
+      q17: "a",
+      q18: "c",
+      q19: "d",
+      q20: "c",
+      q21: "c",
+      q22: "d",
+      q23: "a",
+      q24: "c",
+      q25: "c",
+      q26: "b",
+      q27: "b",
+      q28: "b",
+      q29: "b",
+      q30: "c"
+    };
+
+    const scoreBox = document.querySelector("#post-test-score");
+    const postTestForm = document.querySelector("#post-test-form");
+    document.querySelector("#check-post-test").addEventListener("click", () => {
+      let score = 0;
+      Object.entries(postTestAnswers).forEach(([name, answer]) => {
+        const selected = postTestForm.querySelector(`input[name="${name}"]:checked`);
+        if (selected && selected.value === answer) score += 1;
+      });
+      scoreBox.textContent = `Score: ${score}/30`;
+    });
+
+    document.querySelector("#reset-post-test").addEventListener("click", () => {
+      scoreBox.textContent = "";
+    });
+  </script>
+</body>
+</html>
